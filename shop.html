@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop — ITS DANNY African Couture</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Barlow:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="Style.css">
+    <!-- EmailJS — must load before any emailjs.send() call -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>emailjs.init({ publicKey: "VxJO6kQ_TLTc5QKC3" });</script>
+</head>
+
+<body>
+    <div class="cursor">
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    </div>
+    <div class="toast" id="toast"></div>
+
+    <!-- ══ NAVBAR ══ -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
+            <span>African<br>Couture</span>
+        </a>
+        <div class="nav-links">
+            <a href="Index.html">Home</a>
+            <a href="Index.html#how">How It Works</a>
+            <a href="About.html">About Us</a>
+            <a href="Shop.html" class="active">Shop</a>
+        </div>
+        <div class="nav-actions">
+            <a href="Index.html#booking" class="nav-btn" onclick="openBooking();return false;">Book a Fitting</a>
+            <button class="cart-icon" onclick="toggleCart()">🛍<span class="cart-count" id="cartCount">0</span></button>
+        </div>
+    </nav>
+
+    <!-- ══ PAGE HERO ══ -->
+    <section class="page-hero">
+        <div class="breadcrumb"><a href="Index.html">Home</a><span>/</span><span>Shop</span></div>
+        <div class="page-hero-eyebrow">2026 Collection</div>
+        <h1>Browse &amp; <em>Book</em><br>Your Design</h1>
+        <p class="page-hero-sub">Pick a style, book your measurement session — we cut, stitch, and deliver a custom
+            garment tailored exactly to your body.</p>
+        <div class="hero-strip"></div>
+    </section>
+
+    <!-- ══ SHOP WRAPPER ══ -->
+    <div class="shop-wrapper">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Category</div>
+                <div class="cat-list" id="catList">
+                    <button class="cat-btn active" onclick="filterCat('all',this)">All Styles <span
+                            class="cat-count">12</span></button>
+                    <button class="cat-btn" onclick="filterCat('agbada',this)">Agbada <span
+                            class="cat-count">3</span></button>
+                    <button class="cat-btn" onclick="filterCat('senator',this)">Senator <span
+                            class="cat-count">3</span></button>
+                    <button class="cat-btn" onclick="filterCat('dashiki',this)">Dashiki <span
+                            class="cat-count">2</span></button>
+                    <button class="cat-btn" onclick="filterCat('kaftan',this)">Kaftan <span
+                            class="cat-count">2</span></button>
+                    <button class="cat-btn" onclick="filterCat('boys',this)">Boys <span
+                            class="cat-count">2</span></button>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Price Range</div>
+                <div class="price-inputs">
+                    <input class="price-input" type="number" placeholder="Min ₦" id="priceMin" />
+                    <input class="price-input" type="number" placeholder="Max ₦" id="priceMax" />
+                </div>
+                <button class="apply-price" onclick="applyPrice()">Apply Filter</button>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Fabric Colour</div>
+                <div class="color-grid" id="colorGrid">
+                    <div class="color-swatch" style="background:#2C1A0E" onclick="toggleColor(this,'#2C1A0E')"
+                        title="Rich Brown"></div>
+                    <div class="color-swatch" style="background:#1A2C1A" onclick="toggleColor(this,'#1A2C1A')"
+                        title="Forest Green"></div>
+                    <div class="color-swatch" style="background:#1A1A2C" onclick="toggleColor(this,'#1A1A2C')"
+                        title="Midnight Navy"></div>
+                    <div class="color-swatch" style="background:#0D0D0D" onclick="toggleColor(this,'#0D0D0D')"
+                        title="Jet Black"></div>
+                    <div class="color-swatch" style="background:#F5ECD7" onclick="toggleColor(this,'#F5ECD7')"
+                        title="Ivory Cream"></div>
+                    <div class="color-swatch" style="background:#8B2E00" onclick="toggleColor(this,'#8B2E00')"
+                        title="Burnt Sienna"></div>
+                    <div class="color-swatch" style="background:#7D6608" onclick="toggleColor(this,'#7D6608')"
+                        title="Kente Gold"></div>
+                    <div class="color-swatch" style="background:#4B0082" onclick="toggleColor(this,'#4B0082')"
+                        title="Royal Purple"></div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Sort By</div>
+                <select class="sort-select" id="sortSelect" onchange="applySort()">
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="newest">Newest</option>
+                    <option value="name">Name A–Z</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main-content">
+            <div class="toolbar">
+                <div class="toolbar-left">Showing <strong id="resultCount">12</strong> designs · Select one to book your
+                    measurement</div>
+                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                    <div id="activeFilters" class="active-filters"></div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="setView('grid',this)" title="Grid View">⊞</button>
+                        <button class="view-btn" onclick="setView('list',this)" title="List View">☰</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-grid" id="productGrid"></div>
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+
+    <!-- ══ PRODUCT MODAL ══ -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-img">
+                <img id="modalImg" src="" alt="" />
+                <div class="modal-img-overlay"></div>
+                <div class="modal-img-tag"><strong id="modalImgName"></strong><span id="modalImgCat"></span></div>
+            </div>
+            <div class="modal-body">
+                <span class="modal-cat" id="modalCat"></span>
+                <div class="modal-name" id="modalName"></div>
+                <p class="modal-desc" id="modalDesc"></p>
+                <div class="modal-price" id="modalPrice"></div>
+                <div>
+                    <div class="modal-label">Fabric Colour</div>
+                    <div class="swatches" id="modalSwatches"></div>
+                </div>
+                <div>
+                    <div class="modal-label">Size (we'll tailor to your exact measurements)</div>
+                    <div class="size-grid" id="sizeGrid">
+                        <button class="size-btn" onclick="selectSize(this)">XS</button>
+                        <button class="size-btn" onclick="selectSize(this)">S</button>
+                        <button class="size-btn active" onclick="selectSize(this)">M</button>
+                        <button class="size-btn" onclick="selectSize(this)">L</button>
+                        <button class="size-btn" onclick="selectSize(this)">XL</button>
+                        <button class="size-btn" onclick="selectSize(this)">XXL</button>
+                    </div>
+                </div>
+
+                <!-- Inline fitting form — shown when "Book Fitting" is clicked -->
+                <div class="modal-booking-form" id="modalBookingForm">
+                    <div class="modal-label" style="margin-bottom:14px">📏 Book Your Measurement Session</div>
+                    <div class="mini-form-row">
+                        <div class="mini-form-group">
+                            <div class="mini-label">First Name</div><input class="mini-input" type="text"
+                                placeholder="Emeka" id="bkFirst" />
+                        </div>
+                        <div class="mini-form-group">
+                            <div class="mini-label">Last Name</div><input class="mini-input" type="text"
+                                placeholder="Okonkwo" id="bkLast" />
+                        </div>
+                    </div>
+                    <div class="mini-form-group">
+                        <div class="mini-label">Phone / WhatsApp</div><input class="mini-input" type="tel"
+                            placeholder="+234 800 000 0000" id="bkPhone" />
+                    </div>
+                    <div class="mini-form-row">
+                        <div class="mini-form-group">
+                            <div class="mini-label">Preferred Date</div><input class="mini-input" type="date"
+                                id="bkDate" />
+                        </div>
+                        <div class="mini-form-group">
+                            <div class="mini-label">Fitting Type</div>
+                            <select class="mini-select" id="bkType">
+                                <option value="">Select...</option>
+                                <option>In-Person (Lagos Studio)</option>
+                                <option>Remote Measurement Guide</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mini-form-group">
+                        <div class="mini-label">Special Requests</div><textarea class="mini-textarea"
+                            placeholder="Specific fabric, embroidery detail, colour preference..."
+                            id="bkNotes"></textarea>
+                    </div>
+                    <p class="form-note-sm">We'll confirm within 24 hours via WhatsApp or email.</p>
+                    <button class="btn-book-fitting" style="background:var(--amber);color:var(--ink)"
+                        onclick="submitModalBooking()"><span>Confirm Booking →</span></button>
+                </div>
+
+                <div class="modal-success" id="modalSuccess">
+                    <div class="success-icon">✅</div>
+                    <div class="success-title">Booking Confirmed!</div>
+                    <p class="success-body">We've received your fitting request for <strong
+                            id="successDesign"></strong>. The tailor has been notified and will contact you within 24
+                        hours.</p>
+                </div>
+
+                <div class="modal-actions" id="modalActions">
+                    <button class="btn-book-fitting" onclick="showBookingForm()">📏 Book Fitting for This
+                        Design</button>
+                    <button class="btn-add-cart" onclick="addToCartFromModal()">+ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ CART SIDEBAR ══ -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header"><span class="cart-title">Your Cart</span><button class="cart-close"
+                onclick="toggleCart()">✕</button></div>
+        <div class="cart-body" id="cartBody">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total"><span class="cart-total-label">Total</span><span class="cart-total-price"
+                    id="cartTotal">₦0</span></div>
+            <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout</button>
+            <button class="btn-book-cart" onclick="openBookingFromCart()">Book Fitting for Cart Items</button>
+        </div>
+    </div>
+
+    <!-- ══ BOOKING OVERLAY ══ -->
+    <div class="booking-overlay" id="bookingOverlay">
+        <div class="booking-modal">
+            <button class="close-booking" onclick="closeBooking()">✕</button>
+            <div class="booking-form">
+                <div class="form-title">Book a Fitting</div>
+                <div id="formContent">
+                    <!-- Cart context banner shown when booking from cart -->
+                    <div id="ovCartBanner"
+                        style="display:none;background:rgba(200,126,23,.1);border:1px solid rgba(200,126,23,.3);padding:14px 18px;margin-bottom:16px">
+                        <div
+                            style="font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:6px">
+                            Items in Your Cart</div>
+                        <div id="ovCartItems" style="font-size:13px;color:var(--cream)"></div>
+                        <div id="ovCartTotal"
+                            style="font-size:13px;font-weight:600;color:var(--amber2);margin-top:6px;padding-top:6px;border-top:1px solid rgba(200,126,23,.2)">
+                        </div>
+                    </div>
+                    <input type="hidden" id="ovCartSummary" />
+
+                    <div class="form-row">
+                        <div class="form-group"><label>First Name</label><input type="text" placeholder="Emeka"
+                                id="firstName" /></div>
+                        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Okonkwo"
+                                id="lastName" /></div>
+                    </div>
+                    <div class="form-group"><label>Email Address</label><input type="email"
+                            placeholder="you@example.com" id="email" /></div>
+                    <div class="form-group"><label>Phone / WhatsApp</label><input type="tel"
+                            placeholder="+234 800 000 0000" id="phone" /></div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Preferred Date</label><input type="date" id="fittingDate" />
+                        </div>
+                        <div class="form-group"><label>Fitting Type</label>
+                            <select id="fittingType">
+                                <option value="">Select...</option>
+                                <option>In-Person (Lagos Studio)</option>
+                                <option>Remote Measurement Guide</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="ovDesignGroup">
+                        <label>Selected Design (optional)</label>
+                        <select id="designSelect">
+                            <option value="">I'll decide later</option>
+                            <option>Agbada Royale — Men</option>
+                            <option>Classic Senator Set — Men</option>
+                            <option>Ankara Dashiki — Men</option>
+                            <option>Embroidered Kaftan — Men</option>
+                            <option>Mini Senator — Boys</option>
+                            <option>Boys Agbada Set</option>
+                            <option>Boys Ankara Casual</option>
+                            <option>Custom / Not sure yet</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Notes or Special Requests</label><textarea
+                            placeholder="Any specific fabric, colour, or design details you have in mind..."
+                            id="notes"></textarea></div>
+                    <p class="form-note">We'll confirm your booking within 24 hours via WhatsApp or email.</p>
+                    <button type="button" class="btn-submit" id="submitBtn" onclick="submitBooking()">
+                        <span>Confirm Booking →</span>
+                    </button>                            →</span></button>
+                </div>
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">✅</div>
+                    <div class="success-title">Booking Confirmed!</div>
+                    <p class="success-body">Thank you! Your fitting request has been sent to the tailor and they've been
+                        notified via email and WhatsApp. We'll reach out within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ CHECKOUT OVERLAY ══ -->
+    <div class="booking-overlay" id="checkoutOverlay">
+        <div class="booking-modal checkout-modal">
+            <button class="close-booking" onclick="closeCheckout()">✕</button>
+            <div class="booking-form">
+                <div class="form-title">Complete Your Order</div>
+                <div id="checkoutContent">
+                    <div id="checkoutSummary" class="checkout-summary"></div>
+                    <div class="form-row">
+                        <div class="form-group"><label>First Name</label><input type="text" placeholder="Emeka"
+                                id="ckFirst" /></div>
+                        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Okonkwo"
+                                id="ckLast" /></div>
+                    </div>
+                    <div class="form-group"><label>Email Address</label><input type="email"
+                            placeholder="you@example.com" id="ckEmail" /></div>
+                    <div class="form-group"><label>Phone / WhatsApp</label><input type="tel"
+                            placeholder="+234 800 000 0000" id="ckPhone" /></div>
+                    <div class="form-group"><label>Delivery Address</label><textarea id="ckAddress"
+                            placeholder="Street, City, State"></textarea></div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Preferred Fitting Date</label><input type="date" id="ckDate" />
+                        </div>
+                        <div class="form-group"><label>Fitting Type</label>
+                            <select id="ckType">
+                                <option value="">Select...</option>
+                                <option>In-Person (Lagos Studio)</option>
+                                <option>Remote Measurement Guide</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Special Requests</label><textarea id="ckNotes"
+                            placeholder="Fabric preferences, embroidery details, colour notes..."></textarea></div>
+                    <p class="form-note">We'll confirm your order within 24 hours via WhatsApp or email.</p>
+                    <button class="btn-submit" id="ckSubmitBtn" onclick="submitCheckout()"><span>Place Order & Notify
+                            Tailor →</span></button>
+                </div>
+                <div class="form-success" id="checkoutSuccess">
+                    <div class="success-icon">✅</div>
+                    <div class="success-title">Order Placed!</div>
+                    <p class="success-body" id="checkoutSuccessBody"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ══════════════════════════════════════════
+           ⚙️  CONFIG — real credentials filled in
+        ══════════════════════════════════════════ */
+        const EJS_SERVICE = 'service_thu5ecq';
+        const EJS_TEMPLATE = 'template_srzamgw';
+        const WA_NUMBER = '2348105083979';
+
+        /* ══════════════════════════════════════════
+           NOTIFICATION ENGINE
+           Sends via EmailJS + opens WhatsApp
+           Template variables: {{first_name}} {{last_name}}
+           {{email}} {{phone}} {{fitting_date}}
+           {{fitting_type}} {{design}} {{notes}}
+        ══════════════════════════════════════════ */
+        async function sendNotifications(params, waMessage) {
+            try {
+                await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, params);
+                console.log('✓ EmailJS sent');
+            } catch (err) { console.error('✗ EmailJS failed:', err); }
+            window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(waMessage), '_blank');
+        }
+
+        /* ══ BOOKING OVERLAY ══ */
+        function openBooking(preDesign) {
+            // Reset form
+            ['firstName', 'lastName', 'email', 'phone', 'notes'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('fittingDate').value = '';
+            document.getElementById('fittingType').value = '';
+            document.getElementById('designSelect').value = '';
+            document.getElementById('ovCartSummary').value = '';
+            document.getElementById('ovCartBanner').style.display = 'none';
+            document.getElementById('ovDesignGroup').style.display = 'block';
+            document.getElementById('formContent').style.display = 'block';
+            document.getElementById('formSuccess').classList.remove('show');
+            const btn = document.getElementById('ovSubmitBtn');
+            btn.querySelector('span').textContent = 'Confirm Booking →';
+            btn.disabled = false;
+
+            if (preDesign) {
+                // Pre-select a design from the modal
+                const sel = document.getElementById('designSelect');
+                for (let i = 0; i < sel.options.length; i++) {
+                    if (sel.options[i].text.includes(preDesign)) { sel.selectedIndex = i; break; }
+                }
+            }
+            document.getElementById('bookingOverlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function openBookingFromCart() {
+            if (cart.length === 0) { showToast('Your cart is empty'); return; }
+            openBooking(); // reset first
+
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            const lineItems = cart.map(i => `• ${i.name} × ${i.qty}  —  ₦${(i.price * i.qty).toLocaleString()}`).join('\n');
+            const fullSummary = lineItems + `\nTOTAL: ₦${total.toLocaleString()}`;
+
+            document.getElementById('ovCartSummary').value = fullSummary;
+            document.getElementById('ovCartItems').innerHTML = cart.map(i =>
+                `<div>• ${i.name} <span style="color:var(--amber2)">× ${i.qty}</span> — <span style="color:var(--amber2)">₦${(i.price * i.qty).toLocaleString()}</span></div>`
+            ).join('');
+            document.getElementById('ovCartTotal').textContent = `Total: ₦${total.toLocaleString()}`;
+            document.getElementById('ovCartBanner').style.display = 'block';
+            document.getElementById('ovDesignGroup').style.display = 'none';
+
+            document.getElementById('cartSidebar').classList.remove('open');
+        }
+
+        function closeBooking() { document.getElementById('bookingOverlay').classList.remove('show'); document.body.style.overflow = ''; }
+        document.getElementById('bookingOverlay').addEventListener('click', function (e) { if (e.target === this) closeBooking(); });
+
+        async function submitOverlayBooking() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const fittingDate = document.getElementById('fittingDate').value;
+            const fittingType = document.getElementById('fittingType').value;
+            const notes = document.getElementById('notes').value.trim();
+            const cartSummary = document.getElementById('ovCartSummary').value;
+            const design = cartSummary
+                ? '[CART ORDER]\n' + cartSummary
+                : (document.getElementById('designSelect').value || 'Not selected');
+
+            if (!firstName || !lastName || !phone || !fittingDate || !fittingType) {
+                showToast('Please fill all required fields'); return;
+            }
+
+            const btn = document.getElementById('ovSubmitBtn');
+            btn.querySelector('span').textContent = 'Sending…'; btn.disabled = true;
+
+            const params = {
+                first_name: firstName, last_name: lastName, email: email,
+                phone: phone, fitting_date: fittingDate, fitting_type: fittingType,
+                design: design, notes: notes || 'None'
+            };
+            const waMsg =
+                `📋 NEW FITTING BOOKING — ITS DANNY\n════════════════════════════════\n` +
+                `Name:    ${firstName} ${lastName}\nEmail:   ${email}\nPhone:   ${phone}\n` +
+                `Date:    ${fittingDate}\nType:    ${fittingType}\n\n🎨 DESIGN / ORDER:\n${design}\n\n` +
+                `📝 Notes: ${notes || 'None'}\n════════════════════════════════\nSubmitted: ${new Date().toLocaleString()}`;
+
+            await sendNotifications(params, waMsg);
+
+            btn.querySelector('span').textContent = 'Confirm Booking →'; btn.disabled = false;
+            document.getElementById('formContent').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+            showToast('Booking sent! WhatsApp has been opened for confirmation.');
+        }
+
+        /* ══ PRODUCTS ══ */
+        const products = [
+            { id: 1, cat: 'agbada', name: 'Agbada Royale', tag: 'Bestseller', price: 85000, featured: true, isNew: false, img: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=700&q=80', swatches: ['#2C1A0E', '#1A2C1A', '#1A1A2C', '#2C2210', '#3D1A00'], desc: 'A commanding full Agbada set — flowing outer robe, inner shirt, and trousers. Rich hand-embroidered collar. Made for kings.' },
+            { id: 2, cat: 'senator', name: 'Classic Senator Set', tag: 'New', price: 48000, featured: true, isNew: true, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80', swatches: ['#0D0D0D', '#2C3E50', '#7D6608', '#2C1A0E', '#1C3A2C'], desc: 'A refined senator — matching embroidered top and trousers. The go-to for events, meetings, and everything in between.' },
+            { id: 3, cat: 'dashiki', name: 'Ankara Dashiki', tag: '', price: 32000, featured: false, isNew: false, img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=700&q=80', swatches: ['#8B2E00', '#005C3B', '#1A1A7C', '#7C5A00', '#4B0082'], desc: 'Vibrant Ankara fabric, relaxed silhouette, bold print. The dashiki that turns heads at every outing.' },
+            { id: 4, cat: 'kaftan', name: 'Embroidered Kaftan', tag: '', price: 62000, featured: true, isNew: false, img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=700&q=80', swatches: ['#F5ECD7', '#C9B49A', '#2C1A0E', '#1A2C1A', '#0A0A1A'], desc: 'Relaxed, wide-cut kaftan with dense embroidery along the chest and sleeves. Effortless luxury.' },
+            { id: 5, cat: 'boys', name: 'Mini Senator — Boys', tag: 'Boys', price: 24000, featured: false, isNew: true, img: 'https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=700&q=80', swatches: ['#0D0D0D', '#1A2C1A', '#2C1A0E', '#2C3E50', '#7D6608'], desc: 'A sharp senator set tailored for boys aged 3–16. Embroidered detail matches the grown-up collection.' },
+            { id: 6, cat: 'boys', name: 'Boys Agbada Set', tag: 'Boys', price: 38000, featured: false, isNew: false, img: 'https://images.unsplash.com/photo-1476234251651-f353703a034d?w=700&q=80', swatches: ['#2C1A0E', '#1A2C1A', '#F5ECD7', '#1A1A2C', '#3D1A00'], desc: 'A full mini Agbada for boys — matching the prestige of the adult collection. Perfectly cut for young kings.' },
+            { id: 7, cat: 'senator', name: 'Grand Buba & Sokoto', tag: 'Limited', price: 55000, featured: true, isNew: false, img: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=700&q=80', swatches: ['#2C1A0E', '#1A1A2C', '#0D1F0D', '#7D6608', '#3D0A0A'], desc: 'Wide-sleeved buba and matching sokoto. A timeless combination for celebrations, church, or commanding any room.' },
+            { id: 8, cat: 'agbada', name: 'Ceremonial Agbada', tag: '', price: 120000, featured: false, isNew: false, img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=700&q=80', swatches: ['#7D6608', '#F5ECD7', '#2C1A0E', '#4B0082', '#0D0D0D'], desc: 'Three-piece ceremonial Agbada in premium Aso-Oke. Statement embroidery on the hem, cuffs and collar.' },
+            { id: 9, cat: 'dashiki', name: 'Linen Dashiki Set', tag: '', price: 29000, featured: false, isNew: true, img: 'https://images.unsplash.com/photo-1488161628813-04466f872be2?w=700&q=80', swatches: ['#D4C5A9', '#8B9E8B', '#B8A07A', '#5C5C5C', '#C4A882'], desc: 'Breathable linen shirt and wide trousers. Relaxed fit, clean lines — African ease for everyday wear.' },
+            { id: 10, cat: 'kaftan', name: 'Luxury Adire Kaftan', tag: 'New', price: 45000, featured: false, isNew: true, img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=80', swatches: ['#1A1A7C', '#4B0082', '#005C3B', '#8B2E00', '#0D0D0D'], desc: 'Adire (tie-dye) cotton kaftan, hand-crafted pattern, relaxed hem. Cultural identity meets contemporary ease.' },
+            { id: 11, cat: 'senator', name: '3-Piece Executive Senator', tag: '', price: 72000, featured: false, isNew: false, img: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=700&q=80', swatches: ['#0D0D0D', '#1A1A2C', '#2C1A0E', '#1C3A2C', '#4B3000'], desc: 'Structured senator jacket, trouser, and inner shirt. Ideal for formal meetings, state functions, or high-table events.' },
+            { id: 12, cat: 'agbada', name: 'Casual Ankara Agbada', tag: '', price: 58000, featured: false, isNew: false, img: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=700&q=80', swatches: ['#8B2E00', '#7C5A00', '#2C1A0E', '#1A2C1A', '#4B0082'], desc: 'A lighter, daily Agbada in rich Ankara print. Less formal, all presence.' },
+        ];
+
+        let cart = [], currentProduct = null, activeCat = 'all', activeColors = [], priceMin = 0, priceMax = Infinity, sortBy = 'featured', viewMode = 'grid', currentPage = 1;
+        const PER_PAGE = 9;
+
+        function getFiltered() {
+            let list = products.slice();
+            if (activeCat !== 'all') list = list.filter(p => p.cat === activeCat);
+            if (activeColors.length) list = list.filter(p => p.swatches.some(s => activeColors.includes(s)));
+            list = list.filter(p => p.price >= priceMin && p.price <= priceMax);
+            if (sortBy === 'price-asc') list.sort((a, b) => a.price - b.price);
+            else if (sortBy === 'price-desc') list.sort((a, b) => b.price - a.price);
+            else if (sortBy === 'newest') list.sort((a, b) => b.isNew - a.isNew);
+            else if (sortBy === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
+            else list.sort((a, b) => b.featured - a.featured);
+            return list;
+        }
+
+        function renderAll() {
+            const filtered = getFiltered(), total = filtered.length;
+            document.getElementById('resultCount').textContent = total;
+            const page = filtered.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+            const grid = document.getElementById('productGrid');
+            if (viewMode === 'list') grid.classList.add('list-view'); else grid.classList.remove('list-view');
+            grid.innerHTML = page.length === 0
+                ? `<div class="empty-state"><div class="empty-icon">🪡</div><div class="empty-title">No designs found</div><p class="empty-sub">Try adjusting your filters</p></div>`
+                : page.map(p => cardHTML(p)).join('');
+            renderPagination(total); renderActiveFilters();
+        }
+
+        function cardHTML(p) {
+            const listDesc = viewMode === 'list' ? `<p class="product-long-desc">${p.desc}</p>` : '';
+            const listBtn = viewMode === 'list' ? `<button class="btn-book-inline" onclick="openModal(${p.id})">📏 Book Fitting</button>` : '';
+            const badge = p.tag ? `<span class="product-badge ${p.tag === 'New' ? 'new' : p.tag === 'Limited' ? 'limited' : ''}">${p.tag}</span>` : '';
+            return `<div class="product-card">
+  <div class="product-img"><img src="${p.img}" alt="${p.name}" loading="lazy"/>${badge}
+    <button class="fav-btn" onclick="toggleFav(this,event)" title="Save">♡</button>
+    <div class="product-overlay">
+      <button class="btn-select" onclick="openModal(${p.id})">📏 Book Fitting for This</button>
+      <button class="btn-cart" onclick="addToCart(${p.id},event)">+ Add to Cart</button>
+    </div>
+  </div>
+  <div class="product-info">
+    <div class="product-name">${p.name}</div>
+    <div class="product-meta">${p.cat.charAt(0).toUpperCase() + p.cat.slice(1)} · Custom Tailored</div>
+    ${listDesc}
+    <div class="product-bottom">
+      <div class="product-price">₦${p.price.toLocaleString()}<small> / custom made</small></div>
+      ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ''}
+    </div>${listBtn}
+  </div>
+</div>`;
+        }
+
+        function renderPagination(total) {
+            const pages = Math.ceil(total / PER_PAGE), el = document.getElementById('pagination');
+            if (pages <= 1) { el.innerHTML = ''; return; }
+            let html = '';
+            if (currentPage > 1) html += `<button class="page-btn" onclick="goPage(${currentPage - 1})">‹</button>`;
+            for (let i = 1; i <= pages; i++) {
+                if (i === 1 || i === pages || Math.abs(i - currentPage) <= 1) html += `<button class="page-btn${i === currentPage ? ' active' : ''}" onclick="goPage(${i})">${i}</button>`;
+                else if (Math.abs(i - currentPage) === 2) html += `<span class="page-dots">…</span>`;
+            }
+            if (currentPage < pages) html += `<button class="page-btn" onclick="goPage(${currentPage + 1})">›</button>`;
+            el.innerHTML = html;
+        }
+        function goPage(n) { currentPage = n; renderAll(); window.scrollTo({ top: 400, behavior: 'smooth' }); }
+
+        function renderActiveFilters() {
+            let chips = '';
+            if (activeCat !== 'all') chips += `<div class="filter-chip">${activeCat} <button onclick="filterCat('all',document.querySelector('.cat-btn'))">✕</button></div>`;
+            if (priceMin > 0 || priceMax < Infinity) chips += `<div class="filter-chip">₦${priceMin.toLocaleString()}–${priceMax === Infinity ? 'Any' : '₦' + priceMax.toLocaleString()} <button onclick="clearPrice()">✕</button></div>`;
+            activeColors.forEach(c => chips += `<div class="filter-chip" style="border-left:3px solid ${c}">Colour <button onclick="removeColor('${c}')">✕</button></div>`);
+            document.getElementById('activeFilters').innerHTML = chips;
+        }
+
+        function filterCat(cat, btn) { activeCat = cat; currentPage = 1; document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderAll(); }
+        function applyPrice() { priceMin = parseInt(document.getElementById('priceMin').value) || 0; priceMax = parseInt(document.getElementById('priceMax').value) || Infinity; currentPage = 1; renderAll(); }
+        function clearPrice() { priceMin = 0; priceMax = Infinity; document.getElementById('priceMin').value = ''; document.getElementById('priceMax').value = ''; renderAll(); }
+        function toggleColor(el, color) { const idx = activeColors.indexOf(color); if (idx > -1) { activeColors.splice(idx, 1); el.classList.remove('active'); } else { activeColors.push(color); el.classList.add('active'); } currentPage = 1; renderAll(); }
+        function removeColor(color) { activeColors = activeColors.filter(c => c !== color); document.querySelectorAll('.color-swatch').forEach(el => { if (el.style.background === color) el.classList.remove('active'); }); renderAll(); }
+        function applySort() { sortBy = document.getElementById('sortSelect').value; currentPage = 1; renderAll(); }
+        function setView(mode, btn) { viewMode = mode; document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderAll(); }
+
+        /* ══ PRODUCT MODAL ══ */
+        function openModal(id) {
+            currentProduct = products.find(p => p.id === id);
+            if (!currentProduct) return;
+            const p = currentProduct;
+            document.getElementById('modalImg').src = p.img;
+            document.getElementById('modalImgName').textContent = p.name;
+            document.getElementById('modalImgCat').textContent = p.cat.charAt(0).toUpperCase() + p.cat.slice(1) + ' · Custom Tailored';
+            document.getElementById('modalCat').textContent = p.cat.charAt(0).toUpperCase() + p.cat.slice(1) + ' · Custom Tailored';
+            document.getElementById('modalName').textContent = p.name;
+            document.getElementById('modalDesc').textContent = p.desc;
+            document.getElementById('modalPrice').innerHTML = `₦${p.price.toLocaleString()} <small>/ custom piece</small>`;
+            document.getElementById('modalSwatches').innerHTML = p.swatches.map((c, i) =>
+                `<div class="swatch${i === 0 ? ' active' : ''}" style="background:${c}" onclick="this.parentNode.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));this.classList.add('active')"></div>`
+            ).join('');
+            document.getElementById('modalBookingForm').classList.remove('show');
+            document.getElementById('modalSuccess').classList.remove('show');
+            document.getElementById('modalActions').style.display = 'flex';
+            ['bkFirst', 'bkLast', 'bkPhone', 'bkDate', 'bkNotes'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('bkType').value = '';
+            document.getElementById('productModal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() { document.getElementById('productModal').classList.remove('open'); document.body.style.overflow = ''; }
+        document.getElementById('productModal').addEventListener('click', function (e) { if (e.target === this) closeModal(); });
+        function selectSize(btn) { btn.closest('.size-grid').querySelectorAll('.size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+        function showBookingForm() { document.getElementById('modalActions').style.display = 'none'; document.getElementById('modalBookingForm').classList.add('show'); }
+
+        async function submitModalBooking() {
+            const first = document.getElementById('bkFirst').value.trim();
+            const last = document.getElementById('bkLast').value.trim();
+            const phone = document.getElementById('bkPhone').value.trim();
+            const date = document.getElementById('bkDate').value;
+            const type = document.getElementById('bkType').value;
+            const notes = document.getElementById('bkNotes').value.trim();
+            const design = currentProduct ? currentProduct.name : 'Not selected';
+            if (!first || !last || !phone || !date || !type) { showToast('Please fill all required fields'); return; }
+
+            const btn = document.querySelector('#modalBookingForm .btn-book-fitting');
+            btn.querySelector('span').textContent = 'Sending…'; btn.disabled = true;
+
+            const params = { first_name: first, last_name: last, email: '', phone: phone, fitting_date: date, fitting_type: type, design: design, notes: notes || 'None' };
+            const waMsg = `📋 NEW FITTING BOOKING — ITS DANNY\n════════════════════════════════\n` +
+                `Name:    ${first} ${last}\nPhone:   ${phone}\nDate:    ${date}\nType:    ${type}\n\n🎨 Design: ${design}\n\n📝 Notes: ${notes || 'None'}\n════════════════════════════════\nSubmitted: ${new Date().toLocaleString()}`;
+
+            await sendNotifications(params, waMsg);
+
+            btn.querySelector('span').textContent = 'Confirm Booking →'; btn.disabled = false;
+            document.getElementById('modalBookingForm').classList.remove('show');
+            document.getElementById('successDesign').textContent = design;
+            document.getElementById('modalSuccess').classList.add('show');
+            showToast('Booking sent! WhatsApp has been opened for confirmation.');
+        }
+
+        function addToCartFromModal() { if (currentProduct) { addToCart(currentProduct.id); closeModal(); } }
+
+        /* ══ CART ══ */
+        function addToCart(id, e) { if (e) e.stopPropagation(); const p = products.find(p => p.id === id); if (!p) return; const ex = cart.find(i => i.id === id); if (ex) ex.qty++; else cart.push({ ...p, qty: 1 }); updateCart(); showToast(`${p.name} added to cart`); }
+        function removeFromCart(id) { cart = cart.filter(i => i.id !== id); updateCart(); }
+        function updateCart() {
+            const count = cart.reduce((s, i) => s + i.qty, 0), total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            document.getElementById('cartCount').textContent = count;
+            document.getElementById('cartTotal').textContent = '₦' + total.toLocaleString();
+            document.getElementById('cartBody').innerHTML = cart.length === 0 ? '<div class="cart-empty">Your cart is empty</div>' :
+                cart.map(item => `<div class="cart-item"><div class="cart-item-img"><img src="${item.img}" alt="${item.name}"/></div><div style="flex:1"><div class="cart-item-name">${item.name}</div><div class="cart-item-meta">Qty: ${item.qty} · Custom Tailored</div><div class="cart-item-price">₦${(item.price * item.qty).toLocaleString()}</div></div><button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button></div>`).join('');
+        }
+        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); }
+
+        /* ══ CHECKOUT ══ */
+        function openCheckout() {
+            if (cart.length === 0) { showToast('Your cart is empty'); return; }
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            document.getElementById('checkoutSummary').innerHTML =
+                `<div class="checkout-summary-title">Order Summary</div>` +
+                cart.map(i => `<div class="checkout-summary-row"><span>${i.name} <em>× ${i.qty}</em></span><span>₦${(i.price * i.qty).toLocaleString()}</span></div>`).join('') +
+                `<div class="checkout-summary-total"><span>Total</span><span>₦${total.toLocaleString()}</span></div>`;
+            document.getElementById('checkoutContent').style.display = 'block';
+            document.getElementById('checkoutSuccess').classList.remove('show');
+            ['ckFirst', 'ckLast', 'ckEmail', 'ckPhone', 'ckAddress', 'ckNotes'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('ckDate').value = ''; document.getElementById('ckType').value = '';
+            document.getElementById('checkoutOverlay').classList.add('show');
+            document.getElementById('cartSidebar').classList.remove('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCheckout() { document.getElementById('checkoutOverlay').classList.remove('show'); document.body.style.overflow = ''; }
+        document.getElementById('checkoutOverlay').addEventListener('click', function (e) { if (e.target === this) closeCheckout(); });
+
+        async function submitCheckout() {
+            const first = document.getElementById('ckFirst').value.trim();
+            const last = document.getElementById('ckLast').value.trim();
+            const email = document.getElementById('ckEmail').value.trim();
+            const phone = document.getElementById('ckPhone').value.trim();
+            const address = document.getElementById('ckAddress').value.trim();
+            const date = document.getElementById('ckDate').value;
+            const type = document.getElementById('ckType').value;
+            const notes = document.getElementById('ckNotes').value.trim();
+            if (!first || !last || !phone || !address || !date || !type) { showToast('Please fill all required fields'); return; }
+
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            const lineItems = cart.map(i => `• ${i.name} × ${i.qty}  —  ₦${(i.price * i.qty).toLocaleString()}`).join('\n');
+            const btn = document.getElementById('ckSubmitBtn');
+            btn.querySelector('span').textContent = 'Placing Order…'; btn.disabled = true;
+
+            const params = {
+                first_name: first, last_name: last, email: email, phone: phone,
+                fitting_date: date, fitting_type: type,
+                design: `[ORDER]\n${lineItems}\nTOTAL: ₦${total.toLocaleString()}`,
+                notes: `Address: ${address}\n${notes || 'None'}`
+            };
+            const waMsg =
+                `🛍 NEW ORDER — ITS DANNY\n════════════════════════════════\n` +
+                `Customer: ${first} ${last}\nPhone:    ${phone}\nEmail:    ${email}\nAddress:  ${address}\n` +
+                `\n─── Items ───────────\n${lineItems}\nTOTAL: ₦${total.toLocaleString()}\n` +
+                `\n─── Fitting ─────────\nDate:  ${date}\nType:  ${type}\nNotes: ${notes || 'None'}\n` +
+                `════════════════════════════════\nSubmitted: ${new Date().toLocaleString()}`;
+
+            await sendNotifications(params, waMsg);
+
+            btn.querySelector('span').textContent = 'Place Order & Notify Tailor →'; btn.disabled = false;
+            cart = []; updateCart();
+            document.getElementById('checkoutContent').style.display = 'none';
+            document.getElementById('checkoutSuccessBody').innerHTML =
+                `Thank you, <strong>${first}</strong>! Your order for ${cart.length === 0 ? 'your items' : 'the selected designs'} has been sent to our tailor. We'll reach out within 24 hours via WhatsApp or email.`;
+            document.getElementById('checkoutSuccess').classList.add('show');
+            showToast('Order placed! WhatsApp has been opened for confirmation.');
+        }
+
+        /* ══ MISC ══ */
+        function toggleFav(btn, e) { e.stopPropagation(); btn.classList.toggle('active'); btn.textContent = btn.classList.contains('active') ? '♥' : '♡'; showToast(btn.classList.contains('active') ? 'Saved to favourites' : 'Removed from favourites'); }
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800); }
+
+        const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+        (function anim() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(anim); })();
+
+        renderAll();
+
+        // Handle category hash links from other pages (Shop.html#agbada etc.)
+        window.addEventListener('load', function () {
+            const hash = window.location.hash.replace('#', '');
+            if (!hash) return;
+            if (hash === 'new') {
+                const newProducts = products.filter(p => p.isNew);
+                document.getElementById('productGrid').innerHTML = newProducts.map(p => cardHTML(p)).join('');
+                document.getElementById('resultCount').textContent = newProducts.length;
+                return;
+            }
+            const btn = document.querySelector(`.cat-btn[onclick*="${hash}"]`);
+            if (btn) filterCat(hash, btn);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — ITS DANNY African Couture</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Barlow:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="Style.css">
+</head>
+
+<body>
+
+    <div class="cursor">
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    </div>
+
+    <!-- ══ NAVBAR ══ -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
+            <span>African<br>Couture</span>
+        </a>
+        <div class="nav-links">
+            <a href="Index.html">Home</a>
+            <a href="#how">How It Works</a>
+            <a href="About.html" class="active">About Us</a>
+            <a href="Shop.html">Shop</a>
+        </div>
+        <div class="nav-actions">
+            <a href="Index.html#booking" class="nav-btn">Book a Fitting</a>
+            <button class="cart-icon">🛍<span class="cart-count" id="cartCount">0</span></button>
+        </div>
+    </nav>
+
+    <!-- ══ HERO — single image ══ -->
+    <section class="about-hero">
+        <div class="hero-left">
+            <div class="hero-eyebrow">Our Story</div>
+            <h1 class="hero-h1">SEWN WITH<br><em>Purpose.</em><br>WORN WITH<br>PRIDE.</h1>
+            <p class="hero-sub">ITS DANNY was born from one conviction — that African men deserve garments as bold as
+                their identity. Every stitch we make carries culture, craft, and character.</p>
+            <div class="hero-actions">
+                <a href="Shop.html" class="btn-primary"><span>Browse Collection</span></a>
+                <a href="Index.html#booking" class="btn-ghost">Book a Fitting →</a>
+            </div>
+            <div class="hero-stats">
+                <div><span class="stat-num">2,400+</span><span class="stat-lbl">Pieces sewn</span></div>
+                <div><span class="stat-num">5 yrs</span><span class="stat-lbl">In craft</span></div>
+                <div><span class="stat-num">100%</span><span class="stat-lbl">Custom made</span></div>
+            </div>
+        </div>
+
+        <!-- Single hero image -->
+        <div class="hero-right" style="display:block;position:relative;overflow:hidden;">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80" alt="Senator Collection"
+                style="width:100%;height:100%;object-fit:cover;object-position:top center;filter:brightness(.72) saturate(.9);" />
+            <!-- gradient overlay -->
+            <div
+                style="position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,transparent 40%),linear-gradient(to top,var(--ink) 0%,transparent 30%);">
+            </div>
+            <!-- caption -->
+            <div
+                style="position:absolute;bottom:20px;right:20px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,228,.5);font-family:'Barlow',sans-serif;font-weight:300;z-index:2;">
+                Senator Collection · 2026</div>
+        </div>
+    </section>
+
+    <!-- ══ STORY ══ -->
+    <section class="story-section">
+        <div class="story-text reveal-left">
+            <div class="section-eyebrow">The Beginning</div>
+            <h2 class="section-title" style="margin-bottom:36px">More Than<br>A Garment</h2>
+            <p>ITS DANNY began not in a studio, but in the vision of a man determined to elevate African fashion, a vision built on
+            conviction, craftsmanship, and the belief that African style deserves to stand proudly on the global stage, allowing
+            every man to walk into any room with confidence and distinction.</p>
+            <p>What started as a determined pursuit to refine African menswear quickly grew into something greater. Word spread. Men
+            began seeking pieces that reflected confidence and distinction. Grooms came for their wedding Agbadas. Professionals
+            came for their Senator sets. Every client carried a vision, and every garment we crafted became a statement of it.</p>
+            <div class="story-pull">
+                <p>"We don't just make clothes. We make the garment a man reaches for when the moment matters most."</p>
+            </div>
+            <p>Today, ITS DANNY serves clients across Nigeria and the diaspora — offering fully custom-tailored African
+                menswear, from measurement to delivery. But the spirit hasn't changed: every piece is personal, every
+                stitch is intentional, and every customer walks away dressed like the man he knows himself to be.</p>
+        </div>
+        <div class="story-img-col reveal-right">
+            <div style="position:relative;display:inline-block;width:100%">
+                <img class="story-img-main"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80"
+                    alt="Danny craftsmanship" />
+                <img class="story-img-accent"
+                    src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=500&q=80" alt="Detail work" />
+                <div class="story-img-label">EST. 2019</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ VALUES ══ -->
+    <section class="values-section">
+        <div class="reveal">
+            <div class="section-eyebrow" style="color:var(--amber)">What We Stand For</div>
+            <h2 class="section-title light">Our<br>Values</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card reveal" data-num="01" style="transition-delay:.1s">
+                <div class="value-icon">🧵</div>
+                <div class="value-title">Craft Above All</div>
+                <p class="value-body">We refuse shortcuts. Every garment is cut by experienced hands, stitched with
+                    precision, and finished with the kind of attention that only comes from genuine pride in the work.
+                </p>
+            </div>
+            <div class="value-card reveal" data-num="02" style="transition-delay:.2s">
+                <div class="value-icon">🌍</div>
+                <div class="value-title">Culture, Always</div>
+                <p class="value-body">African fashion is not a trend — it is a living tradition. We draw from Yoruba,
+                    Igbo, Hausa, and pan-African textile heritage, translating ancient symbols into garments built for
+                    today's man.</p>
+            </div>
+            <div class="value-card reveal" data-num="03" style="transition-delay:.3s">
+                <div class="value-icon">📐</div>
+                <div class="value-title">Perfect Fit, Every Time</div>
+                <p class="value-body">Off-the-rack was never our language. We take every measurement by hand and tailor
+                    every garment to the individual — because a well-fitted piece changes how a man moves and carries
+                    himself.</p>
+            </div>
+            <div class="value-card reveal" data-num="04" style="transition-delay:.15s">
+                <div class="value-icon">👑</div>
+                <div class="value-title">For Fathers & Sons</div>
+                <p class="value-body">Some of our most meaningful work is the matching pieces we create for fathers and
+                    their boys. We believe style is a language passed between generations.</p>
+            </div>
+            <div class="value-card reveal" data-num="05" style="transition-delay:.25s">
+                <div class="value-icon">🤝</div>
+                <div class="value-title">Client Relationship First</div>
+                <p class="value-body">We know your name. We remember what you ordered for your wedding. ITS DANNY isn't
+                    a transactional brand — it is a long-term relationship between a tailor and the men he dresses.</p>
+            </div>
+            <div class="value-card reveal" data-num="06" style="transition-delay:.35s">
+                <div class="value-icon">⚡</div>
+                <div class="value-title">Speed Without Sacrifice</div>
+                <p class="value-body">We deliver most garments within 5–7 days of measurement confirmation, and we
+                    include a complimentary alteration on every piece — because the job isn't done until the fit is
+                    right.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ FOUNDER ══ -->
+    <section class="founder-section">
+        <div class="founder-img-col reveal-left">
+            <div class="founder-img-frame">
+                <img class="founder-img" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=80"
+                    alt="Danny — Founder" />
+                <div class="founder-tag">
+                    <span class="founder-tag-name">Danny</span>
+                    <span class="founder-tag-role">Founder & Master Tailor</span>
+                </div>
+            </div>
+        </div>
+        <div class="founder-text reveal-right">
+            <div class="section-eyebrow">The Founder</div>
+            <h2 class="section-title" style="margin-bottom:32px">A Tailor Who<br>Believes in<br>Identity</h2>
+            <p class="intro">"I grew up watching my father get dressed for Sunday service. The way he put on his Agbada
+                — slowly, deliberately — told me everything I needed to know about what clothes can mean."</p>
+            <p>Danny trained under master tailors in Lagos for years before opening his own studio. He wanted to create
+                something specific: a space where African men could walk in with a vision and walk out with a garment
+                that exceeded it.</p>
+            <p>His approach is hands-on at every stage. From selecting fabrics with clients to supervising every
+                measurement and fitting, Danny has never stepped away from the craft.</p>
+            <p>Beyond the studio, Danny is passionate about preserving African textile traditions — sourcing authentic
+                Aso-Oke, Adire, and Ankara directly from artisans who carry generational knowledge in their hands.</p>
+            <div class="founder-sig">
+                <div>
+                    <div class="founder-sig-name">Onah Daniel</div>
+                    <div class="founder-sig-title">Founder · ITS DANNY African Couture</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ TIMELINE ══ -->
+    <section class="process-section">
+        <div class="reveal">
+            <div class="section-eyebrow" style="color:var(--amber)">Our Journey</div>
+            <h2 class="section-title light">Built Over<br>Years of<br>Craft</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2019</div>
+                <div class="timeline-title">The First Stitch</div>
+                <p class="timeline-body">ITS DANNY began as a small personal tailoring practice — serving friends,
+                    family, and neighbours in Lagos. The first pieces were Agbadas and Senator sets made for weddings
+                    and naming ceremonies.</p>
+            </div>
+            <div class="timeline-item reveal" style="transition-delay:.1s">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2020</div>
+                <div class="timeline-title">The Boys Collection Is Born</div>
+                <p class="timeline-body">Fathers began requesting matching outfits for their sons. Danny launched a
+                    dedicated boys' line — miniature versions of the adult catalogue, built with the same precision and
+                    care.</p>
+            </div>
+            <div class="timeline-item reveal" style="transition-delay:.2s">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2021</div>
+                <div class="timeline-title">The Studio Opens</div>
+                <p class="timeline-body">ITS DANNY moved from home-based operations into a dedicated studio in Lagos. A
+                    small team of trained tailors joined, allowing the brand to scale while maintaining handcrafted
+                    quality.</p>
+            </div>
+            <div class="timeline-item reveal" style="transition-delay:.3s">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2023</div>
+                <div class="timeline-title">Serving the Diaspora</div>
+                <p class="timeline-body">With the launch of our remote measurement guide, ITS DANNY began serving
+                    Nigerian men in the UK, US, Canada, and beyond. Clients book online and have custom pieces shipped
+                    directly to their door.</p>
+            </div>
+            <div class="timeline-item reveal" style="transition-delay:.4s">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2026</div>
+                <div class="timeline-title">2,400 Pieces. Still Counting.</div>
+                <p class="timeline-body">Today, ITS DANNY has clothed over 2,400 men and boys across Nigeria and the
+                    diaspora. The mission remains unchanged: African men, dressed with pride.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ CRAFT ══ -->
+    <section class="craft-section">
+        <div class="reveal">
+            <div class="section-eyebrow">The Danny Difference</div>
+            <h2 class="section-title" style="margin-bottom:0">Why Every<br>Piece Is Different</h2>
+        </div>
+        <div class="craft-grid">
+            <div class="craft-card reveal" style="transition-delay:.05s">
+                <div class="craft-num">01</div>
+                <div class="craft-icon">📐</div>
+                <div class="craft-title">Hand-Taken Measurements</div>
+                <p class="craft-body">We take up to 12 individual measurements per garment — chest, waist, hip, arm
+                    length, inseam, shoulder width, and more. No guessing. Every number matters.</p>
+            </div>
+            <div class="craft-card reveal" style="transition-delay:.1s">
+                <div class="craft-num">02</div>
+                <div class="craft-icon">🧶</div>
+                <div class="craft-title">Premium Authentic Fabrics</div>
+                <p class="craft-body">We source Aso-Oke, Adire, and premium Ankara directly from artisans who carry
+                    generations of knowledge. Fabrics are selected for weight, drape, and how they carry embroidery.</p>
+            </div>
+            <div class="craft-card reveal" style="transition-delay:.15s">
+                <div class="craft-num">03</div>
+                <div class="craft-icon">✂️</div>
+                <div class="craft-title">Master Tailors Only</div>
+                <p class="craft-body">Every garment that leaves our studio is cut and sewn by experienced hands. No
+                    production-line shortcuts — only skilled tailors who take ownership of each piece.</p>
+            </div>
+            <div class="craft-card reveal" style="transition-delay:.2s">
+                <div class="craft-num">04</div>
+                <div class="craft-icon">🔄</div>
+                <div class="craft-title">Free Alteration Guarantee</div>
+                <p class="craft-body">If anything needs adjusting after your first wear, we fix it at no cost. We don't
+                    consider a garment finished until it fits exactly as it should.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ TESTIMONIALS ══ -->
+    <section class="testi-section">
+        <div class="reveal">
+            <div class="section-eyebrow">Client Stories</div>
+            <h2 class="section-title">What They<br>Say About Us</h2>
+        </div>
+        <div class="testi-grid">
+            <div class="testi-card reveal" style="transition-delay:.1s">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"The Agbada they made for my wedding was absolutely perfect. Every measurement was
+                    spot on and the fabric quality was exceptional. I looked like a king."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">AO</div>
+                    <div>
+                        <div class="testi-name">Adebayo Olatunji</div>
+                        <div class="testi-loc">Lagos, Nigeria</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card reveal" style="transition-delay:.2s">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Ordered matching Senator sets for my son and I. The process was smooth, the
+                    remote measurement guide was easy to follow, and delivery was right on time."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">KE</div>
+                    <div>
+                        <div class="testi-name">Kingsley Eze</div>
+                        <div class="testi-loc">Abuja, Nigeria</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card reveal" style="transition-delay:.3s">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Danny is the only brand I trust for my boys' outfits. My son wore the mini Agbada
+                    to his cousin's naming ceremony and everyone asked where we got it from."</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">CI</div>
+                    <div>
+                        <div class="testi-name">Chukwudi Ikenna</div>
+                        <div class="testi-loc">Port Harcourt, Nigeria</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ CTA ══ -->
+    <section class="cta-section">
+        <div class="cta-inner reveal">
+            <div class="cta-eyebrow">Begin Your Journey</div>
+            <h2 class="cta-h2">READY TO<br>WEAR YOUR <em>Heritage?</em></h2>
+            <p class="cta-sub">Browse our collection, pick your design, and book a fitting. We handle everything else —
+                measurement, fabric, stitching, and delivery. Your custom piece, in 7 days.</p>
+            <div class="cta-buttons">
+                <a href="Shop.html" class="cta-amber"><span>Browse Collection</span></a>
+                <a href="Index.html#booking" class="cta-outline">Book a Fitting →</a>
+                <a href="https://wa.me/2348105083979?text=Hello%20Its%20Danny%20Limited%2C%20I%27m%20interested%20in%20your%20services"
+                    class="cta-whatsapp">💬 WhatsApp Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ FOOTER ══ -->
+    <footer>
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand-name">
+                    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" style="margin-right:10px">
+                        <rect width="36" height="36" fill="rgba(200,126,23,0.15)" rx="2" />
+                        <path d="M8 8h20v4H8zM8 16h12v4H8zM8 24h20v4H8z" fill="#C87E17" />
+                    </svg>
+                    ITS DANNY
+                </div>
+                <p class="footer-brand-desc">Custom-tailored African menswear for fathers and sons. Made bold. Worn with
+                    pride. Every stitch tells a story.</p>
+            </div>
+            <div>
+                <div class="footer-heading">Shop</div>
+                <div class="footer-links"><a href="Shop.html">Agbada</a><a href="Shop.html">Senator</a><a
+                        href="Shop.html">Dashiki</a><a href="Shop.html">Boys Collection</a><a href="Shop.html">New
+                        Arrivals</a></div>
+            </div>
+            <div>
+                <div class="footer-heading">Services</div>
+                <div class="footer-links"><a href="Index.html#booking">Book a Fitting</a><a href="Index.html#how">How It
+                        Works</a><a href="Index.html#booking">Remote Measurement</a><a href="#">Gift Cards</a></div>
+            </div>
+            <div>
+                <div class="footer-heading">Contact</div>
+                <div class="footer-links"><a href="#">Lagos, Nigeria</a><a
+                        href="https://wa.me/2348105083979?text=Hello%20Its%20Danny%20Limited%2C%20I%27m%20interested%20in%20your%20services">WhatsApp
+                        Us</a><a href="mailto:itsdannysign@gmail.com">itsdannysign@gmail.com</a><a
+                        href="https://www.instagram.com/itsdannyltd?igsh=MTJ2dnJraTc3NmI1NQ==">Instagram</a></div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 ITS DANNY African Couture. All rights reserved.</span>
+            <div class="footer-socials">
+                <a class="social-link" href="https://www.instagram.com/itsdannyltd?igsh=MTJ2dnJraTc3NmI1NQ=="
+                    title="Instagram">IG</a>
+                <a class="social-link" href="#" title="TikTok">TK</a>
+                <a class="social-link"
+                    href="https://wa.me/2348105083979?text=Hello%20Its%20Danny%20Limited%2C%20I%27m%20interested%20in%20your%20services"
+                    title="WhatsApp">WA</a>
+                <a class="social-link" href="https://www.facebook.com/share/14WwAcbBoMP/" title="Facebook">FB</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+        (function anim() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(anim); })();
+        const obs = new IntersectionObserver(entries => entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); } }), { threshold: .12 });
+        document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+    </script>
+</body>
+
+</html>

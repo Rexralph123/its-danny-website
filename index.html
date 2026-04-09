@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ITS DANNY LIMITED — African Men's Couture</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="Style.css">
+<!-- EmailJS — must load before any emailjs.send() call -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init({ publicKey: "VxJO6kQ_TLTc5QKC3" });</script>
+</head>
+<body>
+
+<div class="cursor"><div class="cursor-ring"></div><div class="cursor-dot"></div></div>
+<div class="toast" id="toast"></div>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
+    <span>African<br>Couture</span>
+  </a>
+  <div class="nav-links">
+    <a href="Index.html" class="active">Home</a>
+    <a href="#how">How It Works</a>
+    <a href="About.html">About Us</a>
+    <a href="Shop.html">Shop</a>
+  </div>
+  <div class="nav-actions">
+    <a href="#booking" class="nav-btn">Book a Fitting</a>
+    <button class="cart-icon" onclick="toggleCart()">🛍<span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-badge">New Collection — 2026</span>
+    <h1 class="hero-h1">DRESSED<br>IN<br><em>Heritage.</em></h1>
+    <p class="hero-sub">Custom-tailored African menswear. We take your measurements, you pick your design — we bring it to life. Made bold. Worn with pride.</p>
+    <div class="hero-actions">
+      <a href="Shop.html" class="btn-hero-primary"><span>Browse Collection</span></a>
+      <a href="#booking" class="btn-hero-ghost">Book a fitting →</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="hero-stat-num">2,400+</span><span class="hero-stat-lbl">Pieces sewn</span></div>
+      <div><span class="hero-stat-num">100%</span><span class="hero-stat-lbl">Custom fit</span></div>
+      <div><span class="hero-stat-num">7 days</span><span class="hero-stat-lbl">Turnaround</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="Images/showcase hero no shadow.png" alt="">
+    <div class="hero-img-wrap">
+      <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=900&q=80" alt="Danny Collection Hero"/>
+      <div class="hero-img-overlay"></div>
+      <div class="hero-floating-tag"><strong>Agbada Royale</strong>Signature piece — ₦85,000</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COLLECTIONS ══ -->
+<section class="collections-section" id="collections">
+  <div class="section-eyebrow">Collections</div>
+  <h2 class="section-title">Choose Your<br>Design</h2>
+  <div class="filter-bar">
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProducts('all',this)">All Styles</button>
+      <button class="filter-tab" onclick="filterProducts('agbada',this)">Agbada</button>
+      <button class="filter-tab" onclick="filterProducts('senator',this)">Senator</button>
+      <button class="filter-tab" onclick="filterProducts('dashiki',this)">Dashiki</button>
+      <button class="filter-tab" onclick="filterProducts('boys',this)">Boys</button>
+      <button class="filter-tab" onclick="filterProducts('casual',this)">Casual</button>
+    </div>
+    <select class="filter-sort"><option>Sort: Featured</option><option>Price: Low to High</option><option>Price: High to Low</option><option>Newest</option></select>
+  </div>
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how-section" id="how">
+  <div class="section-eyebrow" style="color:var(--amber)">The Process</div>
+  <h2 class="section-title light">How Danny<br>Works</h2>
+  <div class="how-grid">
+    <div class="how-step"><span class="step-num">01</span><div class="step-icon">👔</div><div class="step-title">Pick a Design</div><p class="step-body">Browse our full catalogue of African styles — Agbada, Senator, Dashiki, and more. Select the cut, colour, and fabric that speaks to you.</p></div>
+    <div class="how-step"><span class="step-num">02</span><div class="step-icon">📏</div><div class="step-title">Book Your Fitting</div><p class="step-body">Schedule a measurement session — in-person in Lagos or via guided self-measurement. We make sure every inch is right before we cut a single thread.</p></div>
+    <div class="how-step"><span class="step-num">03</span><div class="step-icon">✂️</div><div class="step-title">We Sew It</div><p class="step-body">Our master tailors cut and stitch your garment to your exact measurements. Premium fabrics, hand-finished details, zero compromise.</p></div>
+    <div class="how-step"><span class="step-num">04</span><div class="step-icon">📦</div><div class="step-title">Delivered Bold</div><p class="step-body">Your piece arrives in 5–7 days, pressed and ready. We include a complimentary alteration if anything needs adjusting after first wear.</p></div>
+  </div>
+</section>
+
+<!-- ══ BOOKING ══ -->
+<section class="booking-section" id="booking">
+  <div class="booking-left">
+    <div class="section-eyebrow">Fitting & Measurement</div>
+    <h2 class="section-title">Book Your<br>Session</h2>
+    <p>Every Danny piece starts with a fitting. Tell us your size, your schedule, and what you have in mind — we'll handle the rest from there.</p>
+    <div class="booking-perks">
+      <div class="perk"><div class="perk-icon">📍</div><div><div class="perk-title">In-Person Lagos</div><div class="perk-body">Visit our studio in Lagos. Our tailors will take every measurement by hand — chest, waist, arm, inseam, and more.</div></div></div>
+      <div class="perk"><div class="perk-icon">📱</div><div><div class="perk-title">Remote Measurement Guide</div><div class="perk-body">Can't come in? We send you a guided video and measurement form. Easy, accurate, and done from home.</div></div></div>
+      <div class="perk"><div class="perk-icon">🔄</div><div><div class="perk-title">Free Alteration</div><div class="perk-body">If your finished garment needs any adjustment after delivery, we fix it free — no questions asked.</div></div></div>
+    </div>
+  </div>
+
+  <div class="booking-form" id="bookingForm">
+    <div class="form-title">Book a Fitting</div>
+    <div id="formContent">
+      <!-- Hidden: carries compiled cart items when booking from cart -->
+      <input type="hidden" id="cartItemsSummary"/>
+
+      <!-- Cart context banner — shown only when booking from cart -->
+      <div id="cartContextBanner" style="display:none;background:rgba(200,126,23,.1);border:1px solid rgba(200,126,23,.3);padding:14px 18px;margin-bottom:16px">
+        <div style="font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:6px">Items in Your Cart</div>
+        <div id="cartBannerItems" style="font-size:13px;color:var(--cream)"></div>
+        <div id="cartBannerTotal" style="font-size:13px;font-weight:600;color:var(--amber2);margin-top:6px;padding-top:6px;border-top:1px solid rgba(200,126,23,.2)"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Emeka" id="firstName"/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Okonkwo" id="lastName"/></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com" id="email"/></div>
+      <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+234 800 000 0000" id="phone"/></div>
+      <div class="form-row">
+        <div class="form-group"><label>Preferred Date</label><input type="date" id="fittingDate"/></div>
+        <div class="form-group"><label>Fitting Type</label>
+          <select id="fittingType">
+            <option value="">Select...</option>
+            <option value="In-Person (Lagos Studio)">In-Person (Lagos Studio)</option>
+            <option value="Remote Measurement Guide">Remote Measurement Guide</option>
+          </select>
+        </div>
+      </div>
+      <!-- Design dropdown — hidden when booking from cart (cart items replace it) -->
+      <div class="form-group" id="designSelectGroup">
+        <label>Selected Design (optional)</label>
+        <select id="designSelect">
+          <option value="">I'll decide later</option>
+          <option value="Agbada Royale — Men">Agbada Royale — Men</option>
+          <option value="Classic Senator Set — Men">Classic Senator Set — Men</option>
+          <option value="Ankara Dashiki — Men">Ankara Dashiki — Men</option>
+          <option value="Embroidered Kaftan — Men">Embroidered Kaftan — Men</option>
+          <option value="Mini Senator — Boys">Mini Senator — Boys</option>
+          <option value="Boys Agbada Set">Boys Agbada Set</option>
+          <option value="Boys Ankara Casual">Boys Ankara Casual</option>
+          <option value="Custom / Not sure yet">Custom / Not sure yet</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Notes or Special Requests</label><textarea placeholder="Any specific fabric, colour, or design details you have in mind..." id="notes"></textarea></div>
+      <p class="form-note">We'll confirm your booking within 24 hours via WhatsApp or email.</p>
+        <button type="button" class="btn-submit" id="submitBtn" onclick="submitBooking()">
+        <span>Confirm Booking →</span>
+        </button>    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Booking Confirmed!</div>
+      <p class="success-body" id="successBody">Thank you! We've received your fitting request and will reach out within 24 hours to confirm your appointment via WhatsApp or email.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testi-section" id="about">
+  <div class="section-eyebrow">Reviews</div>
+  <h2 class="section-title">What Our<br>Customers Say</h2>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"The Agbada they made for my wedding was absolutely perfect. Every measurement was spot on and the fabric quality was exceptional. I looked like a king."</p><div class="testi-author"><div class="testi-avatar">AO</div><div><div class="testi-name">Adebayo Olatunji</div><div class="testi-loc">Lagos, Nigeria</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Ordered matching Senator sets for my son and I. The process was smooth, the remote measurement guide was easy to follow, and delivery was right on time."</p><div class="testi-author"><div class="testi-avatar">KE</div><div><div class="testi-name">Kingsley Eze</div><div class="testi-loc">Abuja, Nigeria</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Danny is the only brand I trust for my boys' outfits. My son wore the mini Agbada to his cousin's naming ceremony and everyone asked where we got it."</p><div class="testi-author"><div class="testi-avatar">CI</div><div><div class="testi-name">Chukwudi Ikenna</div><div class="testi-loc">Port Harcourt, Nigeria</div></div></div></div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="company-left">
+      <span class="footer-brand-name"><img src="Images/logo_no_bg.png" alt="">ITS DANNY</span>
+      <p class="footer-brand-desc">Custom-tailored African menswear for fathers and sons. Made bold. Worn with pride. Every stitch tells a story.</p>
+    </div>
+    <div><div class="footer-heading">Shop</div><div class="footer-links"><a href="Shop.html#agbada">Agbada</a><a href="Shop.html#senator">Senator</a><a href="Shop.html#dashiki">Dashiki</a><a href="Shop.html#boys">Boys Collection</a><a href="Shop.html#new">New Arrivals</a></div></div>
+    <div><div class="footer-heading">Services</div><div class="footer-links"><a href="#booking">Book a Fitting</a><a href="#how">How It Works</a><a href="#booking">Remote Measurement</a><a href="Shop.html">Shop</a></div></div>
+    <div><div class="footer-heading">Contact</div><div class="footer-links"><a href="#">Lagos, Nigeria</a><a href="https://wa.me/2348105083979?text=Hello%20Its%20Danny%20Limited%2C%20I%27m%20interested%20in%20your%20services">WhatsApp Us</a><a href="mailto:itsdannysign@gmail.com">itsdannysign@gmail.com</a><a href="https://www.instagram.com/itsdannyltd?igsh=MTJ2dnJraTc3NmI1NQ==">Instagram</a></div></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 ITS DANNY African Couture. All rights reserved.</span>
+    <div class="footer-socials">
+      <a class="social-link" href="https://www.instagram.com/itsdannyltd?igsh=MTJ2dnJraTc3NmI1NQ==" title="Instagram">IG</a>
+      <a class="social-link" href="#" title="TikTok">TK</a>
+      <a class="social-link" href="https://wa.me/2348105083979?text=Hello%20Its%20Danny%20Limited%2C%20I%27m%20interested%20in%20your%20services" title="WhatsApp">WA</a>
+      <a class="social-link" href="https://www.facebook.com/share/14WwAcbBoMP/" title="Facebook">FB</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ CART SIDEBAR ══ -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header"><span class="cart-title">Your Cart</span><button class="cart-close" onclick="toggleCart()">✕</button></div>
+  <div class="cart-body" id="cartBody"><div class="cart-empty">Your cart is empty</div></div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-price" id="cartTotal">₦0</span>
+    </div>
+    <!-- Both buttons now compile all cart items into the booking form -->
+    <button class="btn-checkout" onclick="bookCartFitting()">Proceed to Checkout</button>
+    <button class="btn-book-cart" onclick="bookCartFitting()">Book Fitting for Cart Items</button>
+  </div>
+</div>
+
+<!-- ══ PRODUCT MODAL ══ -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img"><img id="modalImg" src="" alt=""/></div>
+    <div class="modal-body">
+      <span class="modal-cat" id="modalCat"></span>
+      <div class="modal-name" id="modalName"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-price" id="modalPrice"></div>
+      <div><div class="modal-label">Fabric Colour</div><div class="swatches" id="modalSwatches"></div></div>
+      <div><div class="modal-label">Size (we'll tailor to fit)</div>
+        <div class="size-grid">
+          <button class="size-btn" onclick="selectSize(this)">XS</button>
+          <button class="size-btn" onclick="selectSize(this)">S</button>
+          <button class="size-btn active" onclick="selectSize(this)">M</button>
+          <button class="size-btn" onclick="selectSize(this)">L</button>
+          <button class="size-btn" onclick="selectSize(this)">XL</button>
+          <button class="size-btn" onclick="selectSize(this)">XXL</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-book-fitting" onclick="bookFromModal()">📏 Book Fitting for This Design</button>
+        <button class="btn-add-cart" onclick="addToCartFromModal()">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   EMAILJS + WHATSAPP CONFIG
+   Service:  service_thu5ecq
+   Template: template_srzamgw
+   Your template must contain these variables:
+     {{first_name}} {{last_name}} {{email}}
+     {{phone}} {{fitting_date}} {{fitting_type}}
+     {{design}} {{notes}}
+══════════════════════════════════════════ */
+const EJS_SERVICE  = 'service_thu5ecq';
+const EJS_TEMPLATE = 'template_srzamgw';
+const WA_NUMBER    = '2348105083979';
+
+async function sendBookingNotifications(params, waMessage) {
+  // ── EmailJS ──
+  try {
+    await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, params);
+    console.log('✓ EmailJS sent');
+  } catch (err) {
+    console.error('✗ EmailJS failed:', err);
+  }
+  // ── WhatsApp ── opens new tab with pre-filled message
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(waMessage), '_blank');
+}
+
+/* ══ PRODUCTS ══ */
+const products = [
+  { id:1, cat:'agbada',  name:'Agbada Royale',      price:85000, tag:'Bestseller', img:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80', swatches:['#2C1A0E','#1A2C1A','#1A1A2C','#2C2210','#3D1A00'], desc:'A commanding full Agbada set — flowing outer robe, inner shirt, and trousers. Rich hand-embroidered collar. Made for kings.' },
+  { id:2, cat:'senator', name:'Classic Senator Set', price:48000, tag:'New',        img:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', swatches:['#0D0D0D','#2C3E50','#7D6608','#2C1A0E','#1C3A2C'], desc:'A refined senator — matching embroidered top and trousers. The go-to for events, meetings, and everything in between.' },
+  { id:3, cat:'dashiki', name:'Ankara Dashiki',      price:32000, tag:'',           img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80', swatches:['#8B2E00','#005C3B','#1A1A7C','#7C5A00','#4B0082'], desc:'Vibrant Ankara fabric, relaxed silhouette, bold print. The dashiki that turns heads at every outing.' },
+  { id:4, cat:'agbada',  name:'Embroidered Kaftan',  price:62000, tag:'',           img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&q=80', swatches:['#F5ECD7','#C9B49A','#2C1A0E','#1A2C1A','#0A0A1A'], desc:'Relaxed, wide-cut kaftan with dense embroidery along the chest and sleeves. Effortless luxury.' },
+  { id:5, cat:'boys',    name:'Mini Senator — Boys', price:24000, tag:'Boys',       img:'https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=600&q=80', swatches:['#0D0D0D','#1A2C1A','#2C1A0E','#2C3E50','#7D6608'], desc:'A sharp senator set tailored for boys aged 3–16. Embroidered detail matches the grown-up collection.' },
+  { id:6, cat:'boys',    name:'Boys Agbada Set',     price:38000, tag:'Boys',       img:'https://images.unsplash.com/photo-1476234251651-f353703a034d?w=600&q=80', swatches:['#2C1A0E','#1A2C1A','#F5ECD7','#1A1A2C','#3D1A00'], desc:'A full mini Agbada for boys — matching the prestige of the adult collection. Perfectly cut for young kings.' },
+  { id:7, cat:'casual',  name:'Linen Casual Set',    price:29000, tag:'',           img:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80', swatches:['#D4C5A9','#8B9E8B','#B8A07A','#5C5C5C','#C4A882'], desc:'Breathable linen shirt and wide trousers. Relaxed fit, clean lines — African ease for everyday wear.' },
+  { id:8, cat:'senator', name:'Grand Buba & Sokoto', price:55000, tag:'Limited',    img:'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&q=80', swatches:['#2C1A0E','#1A1A2C','#0D1F0D','#7D6608','#3D0A0A'], desc:'Wide-sleeved buba and matching sokoto. A timeless combination for celebrations, church, or commanding any room.' }
+];
+
+let cart = [], currentProduct = null;
+
+function renderProducts(filter='all') {
+  const list = filter==='all' ? products : products.filter(p=>p.cat===filter);
+  document.getElementById('productGrid').innerHTML = list.map(p=>`
+    <div class="product-card" data-id="${p.id}">
+      <div class="product-img">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+        ${p.tag?`<span class="product-cat">${p.tag}</span>`:''}
+        <div class="product-overlay">
+          <button class="btn-select" onclick="openModal(${p.id})">Select Design</button>
+          <button class="btn-wishlist" onclick="addToCart(${p.id},event)">+ Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.cat.charAt(0).toUpperCase()+p.cat.slice(1)} • Custom Tailored</div>
+        <div class="product-bottom">
+          <div class="product-price">₦${p.price.toLocaleString()}<small> / custom made</small></div>
+          ${p.tag?`<span class="product-tag">${p.tag}</span>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active'); renderProducts(cat);
+}
+
+function openModal(id) {
+  currentProduct = products.find(p=>p.id===id);
+  if (!currentProduct) return;
+  document.getElementById('modalImg').src = currentProduct.img;
+  document.getElementById('modalCat').textContent = currentProduct.cat.charAt(0).toUpperCase()+currentProduct.cat.slice(1)+' · Custom Tailored';
+  document.getElementById('modalName').textContent = currentProduct.name;
+  document.getElementById('modalDesc').textContent = currentProduct.desc;
+  document.getElementById('modalPrice').innerHTML = `₦${currentProduct.price.toLocaleString()} <small>/ custom piece</small>`;
+  document.getElementById('modalSwatches').innerHTML = currentProduct.swatches.map((c,i)=>
+    `<div class="swatch ${i===0?'active':''}" style="background:${c}" onclick="this.parentNode.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));this.classList.add('active')"></div>`
+  ).join('');
+  document.getElementById('productModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal() { document.getElementById('productModal').classList.remove('open'); document.body.style.overflow=''; }
+document.getElementById('productModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+function selectSize(btn) { btn.closest('.size-grid').querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+
+function bookFromModal() {
+  closeModal();
+  resetCartContext(); // clear any cart override
+  if (currentProduct) {
+    const sel = document.getElementById('designSelect');
+    for (let i=0; i<sel.options.length; i++) {
+      if (sel.options[i].value.includes(currentProduct.name)) { sel.selectedIndex=i; break; }
+    }
+  }
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+}
+function addToCartFromModal() { if(currentProduct){ addToCart(currentProduct.id); closeModal(); } }
+
+/* ══ CART ══ */
+function addToCart(id, e) {
+  if(e) e.stopPropagation();
+  const p = products.find(p=>p.id===id);
+  if(!p) return;
+  const ex = cart.find(i=>i.id===id);
+  if(ex) ex.qty++; else cart.push({...p, qty:1});
+  updateCart(); showToast(`${p.name} added to cart`);
+}
+function removeFromCart(id) { cart=cart.filter(i=>i.id!==id); updateCart(); }
+function updateCart() {
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = '₦'+total.toLocaleString();
+  document.getElementById('cartBody').innerHTML = cart.length===0
+    ? '<div class="cart-empty">Your cart is empty</div>'
+    : cart.map(item=>`
+        <div class="cart-item">
+          <div class="cart-item-img"><img src="${item.img}" alt="${item.name}"/></div>
+          <div style="flex:1">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-meta">Qty: ${item.qty} · Custom Made</div>
+            <div class="cart-item-price">₦${(item.price*item.qty).toLocaleString()}</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+        </div>`).join('');
+}
+function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); }
+
+/* ══ BOOK FITTING FROM CART ══
+   Compiles all cart items into the booking form.
+   All selected designs are sent via EmailJS + WhatsApp on submit.   */
+function bookCartFitting() {
+  if (cart.length === 0) { showToast('Your cart is empty'); return; }
+
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+
+  // Build a rich summary string for EmailJS + WhatsApp
+  const lineItems = cart.map(i=>`• ${i.name} × ${i.qty}  —  ₦${(i.price*i.qty).toLocaleString()}`).join('\n');
+  const fullSummary = lineItems + `\nORDER TOTAL: ₦${total.toLocaleString()}`;
+
+  // Store for submitBooking() to include instead of the dropdown
+  document.getElementById('cartItemsSummary').value = fullSummary;
+
+  // Show cart context banner
+  document.getElementById('cartContextBanner').style.display = 'block';
+  document.getElementById('cartBannerItems').innerHTML = cart.map(i=>
+    `<div>• ${i.name} <span style="color:var(--amber2)">× ${i.qty}</span> — <span style="color:var(--amber2)">₦${(i.price*i.qty).toLocaleString()}</span></div>`
+  ).join('');
+  document.getElementById('cartBannerTotal').textContent = `Total: ₦${total.toLocaleString()}`;
+
+  // Hide the design dropdown (replaced by cart items)
+  document.getElementById('designSelectGroup').style.display = 'none';
+
+  // Close cart and scroll
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+  showToast('Fill in your details — all cart items will be included in your booking');
+}
+
+function resetCartContext() {
+  document.getElementById('cartItemsSummary').value = '';
+  document.getElementById('cartContextBanner').style.display = 'none';
+  document.getElementById('designSelectGroup').style.display = 'block';
+}
+
+/* ══════════════════════════════════════════
+   SUBMIT BOOKING — EmailJS + WhatsApp
+══════════════════════════════════════════ */
+async function submitBooking() {
+  const btn = document.getElementById('submitBtn');
+  const firstName   = document.getElementById('firstName').value.trim();
+  const lastName    = document.getElementById('lastName').value.trim();
+  const email       = document.getElementById('email').value.trim();
+  const phone       = document.getElementById('phone').value.trim();
+  const fittingDate = document.getElementById('fittingDate').value;
+  const fittingType = document.getElementById('fittingType').value;
+  const notes       = document.getElementById('notes').value.trim();
+
+  // Cart items take priority over the design dropdown
+  const cartSummary = document.getElementById('cartItemsSummary').value;
+  const design = cartSummary
+    ? '[CART ORDER]\n' + cartSummary
+    : (document.getElementById('designSelect').value || 'Not selected');
+
+  if (!firstName || !lastName || !email || !phone || !fittingDate || !fittingType) {
+    showToast('Please fill in all required fields.'); return;
+  }
+
+  btn.disabled = true;
+  btn.querySelector('span').textContent = 'Sending…';
+
+  // EmailJS template params
+  const params = {
+    first_name:   firstName,
+    last_name:    lastName,
+    email:        email,
+    phone:        phone,
+    fitting_date: fittingDate,
+    fitting_type: fittingType,
+    design:       design,
+    notes:        notes || 'None'
+  };
+
+  // WhatsApp message
+  const waMsg =
+    `📋 NEW FITTING BOOKING — ITS DANNY\n` +
+    `════════════════════════════════\n` +
+    `Name:    ${firstName} ${lastName}\n` +
+    `Email:   ${email}\n` +
+    `Phone:   ${phone}\n` +
+    `Date:    ${fittingDate}\n` +
+    `Type:    ${fittingType}\n` +
+    `\n🎨 DESIGN / ORDER:\n${design}\n` +
+    `\n📝 Notes: ${notes || 'None'}\n` +
+    `════════════════════════════════\n` +
+    `Submitted: ${new Date().toLocaleString()}`;
+
+  await sendBookingNotifications(params, waMsg);
+
+  btn.disabled = false;
+  btn.querySelector('span').textContent = 'Confirm Booking →';
+
+  // Show success
+  document.getElementById('formContent').style.display = 'none';
+  document.getElementById('successBody').innerHTML =
+    `Thank you, <strong>${firstName}</strong>! Your booking for ` +
+    `<strong>${cartSummary ? 'your cart items' : design}</strong> has been received. ` +
+    `We'll reach out within 24 hours via WhatsApp or email.`;
+  document.getElementById('formSuccess').classList.add('show');
+  showToast('Booking sent! WhatsApp has been opened for confirmation.');
+
+  // Reset cart-from-cart state for future bookings
+  resetCartContext();
+}
+
+/* ══ TOAST + CURSOR ══ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+
+renderProducts();
+</script>
+</body>
+</html>
