@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shop — ITS DANNY African Couture</title>
+    <link rel="icon" type="image/png" href="Images/logo black bg.jpeg">    
+    
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Barlow:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
@@ -22,21 +24,40 @@
     <div class="toast" id="toast"></div>
 
     <!-- ══ NAVBAR ══ -->
-    <nav>
-        <a href="#" class="nav-logo">
-            <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
-            <span>African<br>Couture</span>
-        </a>
-        <div class="nav-links">
-            <a href="Index.html">Home</a>
-            <a href="About.html">About Us</a>
-            <a href="Shop.html" class="active">Shop</a>
+<nav>
+    <a href="#" class="nav-logo">
+        <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
+        <span>African<br>Couture</span>
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html" class="active">Shop</a>
+    </div>
+
+    <div class="nav-actions">
+        <div class="nav-mobile-actions">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html">Shop</a>
         </div>
-        <div class="nav-actions">
-            <a href="Index.html#booking" class="nav-btn" onclick="openBooking();return false;">Book a Fitting</a>
-            <button class="cart-icon" onclick="toggleCart()">🛍<span class="cart-count" id="cartCount">0</span></button>
-        </div>
-    </nav>
+
+        <p></p>
+        <a href="#booking" class="nav-btn">Book a Fitting</a>
+        <button class="cart-icon" onclick="toggleCart()">
+        🛍
+        <span class="cart-count" id="cartCount">0</span>
+        </button>
+    </div>
+
+</nav>
+
 
     <!-- ══ PAGE HERO ══ -->
     <section class="page-hero">
@@ -276,7 +297,7 @@
                         <label>Selected Design (optional)</label>
                         <select id="designSelect">
                             <option value="">I'll decide later</option>
-                            <option>Agbada Royale — Men</option>
+                            <option>Isi agu touch — Men</option>
                             <option>Classic Senator Set — Men</option>
                             <option>Ankara Dashiki — Men</option>
                             <option>Embroidered Kaftan — Men</option>
@@ -352,19 +373,26 @@
 
     <script>
         /* ══════════════════════════════════════════
-           ⚙️  CONFIG — real credentials filled in
+        ⚙️  CONFIG — real credentials filled in
         ══════════════════════════════════════════ */
         const EJS_SERVICE = 'service_thu5ecq';
         const EJS_TEMPLATE = 'template_srzamgw';
         const WA_NUMBER = '2348105083979';
 
         /* ══════════════════════════════════════════
-           NOTIFICATION ENGINE
-           Sends via EmailJS + opens WhatsApp
-           Template variables: {{first_name}} {{last_name}}
-           {{email}} {{phone}} {{fitting_date}}
-           {{fitting_type}} {{design}} {{notes}}
+        NOTIFICATION ENGINE
+        Nav Menu  Mobile Toggle
+        Sends via EmailJS + opens WhatsApp
+        Template variables: {{first_name}} {{last_name}}
+        {{email}} {{phone}} {{fitting_date}}
+        {{fitting_type}} {{design}} {{notes}}
         ══════════════════════════════════════════ */
+        function toggleMenu() {
+            document.querySelector('nav').classList.toggle('mobile-open');
+        }
+
+        
+        
         async function sendNotifications(params, waMessage) {
             try {
                 await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, params);

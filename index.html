@@ -4,6 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ITS DANNY LIMITED — African Men's Couture</title>
+<link rel="icon" type="image/png" href="Images/logo black bg.jpeg">
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css">
 <!-- EmailJS — must load before any emailjs.send() call -->
@@ -21,15 +23,33 @@
     <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
     <span>African<br>Couture</span>
   </a>
+
+  <!-- Mobile Menu Button -->
+  <button class="menu-toggle" onclick="toggleMenu()">
+    ☰
+  </button>
+
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="about.html">About Us</a>
     <a href="shop.html">Shop</a>
   </div>
+
   <div class="nav-actions">
+    <div class="nav-mobile-actions">
+    <a href="index.html" class="active">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="shop.html">Shop</a>
+    </div>
+
+    <p></p>
     <a href="#booking" class="nav-btn">Book a Fitting</a>
-    <button class="cart-icon" onclick="toggleCart()">🛍<span class="cart-count" id="cartCount">0</span></button>
+    <button class="cart-icon" onclick="toggleCart()">
+      🛍
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
   </div>
+
 </nav>
 
 <!-- ══ HERO ══ -->
@@ -237,14 +257,20 @@
 
 <script>
 /* ══════════════════════════════════════════
-   EMAILJS + WHATSAPP CONFIG
-   Service:  service_thu5ecq
-   Template: template_srzamgw
-   Your template must contain these variables:
+  Nav Mobile view toggle
+  EMAILJS + WHATSAPP CONFIG
+  Service:  service_thu5ecq
+  Template: template_srzamgw
+  Your template must contain these variables:
      {{first_name}} {{last_name}} {{email}}
      {{phone}} {{fitting_date}} {{fitting_type}}
      {{design}} {{notes}}
 ══════════════════════════════════════════ */
+function toggleMenu() {
+  document.querySelector('nav').classList.toggle('mobile-open');
+}
+
+
 const EJS_SERVICE  = 'service_thu5ecq';
 const EJS_TEMPLATE = 'template_srzamgw';
 const WA_NUMBER    = '2348105083979';

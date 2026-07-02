@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About — ITS DANNY African Couture</title>
+    <link rel="icon" type="image/png" href="Images/logo black bg.jpeg">
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Barlow:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
@@ -19,21 +20,40 @@
     </div>
 
     <!-- ══ NAVBAR ══ -->
-    <nav>
-        <a href="#" class="nav-logo">
-            <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
-            <span>African<br>Couture</span>
-        </a>
-        <div class="nav-links">
-            <a href="Index.html">Home</a>
-            <a href="About.html" class="active">About Us</a>
-            <a href="Shop.html">Shop</a>
+<nav>
+    <a href="#" class="nav-logo">
+        <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
+        <span>African<br>Couture</span>
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About Us</a>
+        <a href="shop.html">Shop</a>
+    </div>
+
+    <div class="nav-actions">
+        <div class="nav-mobile-actions">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html">Shop</a>
         </div>
-        <div class="nav-actions">
-            <a href="Index.html#booking" class="nav-btn">Book a Fitting</a>
-            <button class="cart-icon">🛍<span class="cart-count" id="cartCount">0</span></button>
-        </div>
-    </nav>
+
+        <p></p>
+        <a href="#booking" class="nav-btn">Book a Fitting</a>
+        <button class="cart-icon" onclick="toggleCart()">
+        🛍
+        <span class="cart-count" id="cartCount">0</span>
+        </button>
+    </div>
+
+</nav>
+
 
     <!-- ══ HERO — single image ══ -->
     <section class="about-hero">
@@ -55,7 +75,7 @@
 
         <!-- Single hero image -->
         <div class="hero-right" style="display:block;position:relative;overflow:hidden;">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80" alt="Senator Collection"
+            <img src="Images/Danny Havesters.jpeg" alt="Senator Collection"
                 style="width:100%;height:100%;object-fit:cover;object-position:top center;filter:brightness(.72) saturate(.9);" />
             <!-- gradient overlay -->
             <div
@@ -64,7 +84,7 @@
             <!-- caption -->
             <div
                 style="position:absolute;bottom:20px;right:20px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,239,228,.5);font-family:'Barlow',sans-serif;font-weight:300;z-index:2;">
-                Senator Collection · 2026</div>
+                HARVESTERS LEKKI · 2026</div>
         </div>
     </section>
 
@@ -89,10 +109,10 @@
         <div class="story-img-col reveal-right">
             <div style="position:relative;display:inline-block;width:100%">
                 <img class="story-img-main"
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80"
+                    src="Images/Daniel & 3 isiagu.jpg"
                     alt="Danny craftsmanship" />
                 <img class="story-img-accent"
-                    src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=500&q=80" alt="Detail work" />
+                    src="Images/Daniel & Brother business.jpg" alt="Detail work" />
                 <div class="story-img-label">EST. 2019</div>
             </div>
         </div>
@@ -152,7 +172,7 @@
     <section class="founder-section">
         <div class="founder-img-col reveal-left">
             <div class="founder-img-frame">
-                <img class="founder-img" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=700&q=80"
+                <img class="founder-img" src="Images/Danny Havesters.jpeg"
                     alt="Danny — Founder" />
                 <div class="founder-tag">
                     <span class="founder-tag-name">Danny</span>
@@ -378,6 +398,17 @@
     </footer>
 
     <script>
+        /*
+        Nav Mobile view Toggle
+        */
+
+        function toggleMenu() {
+            document.querySelector('nav').classList.toggle('mobile-open');
+        }
+
+
+
+
         const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring');
         let mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });

@@ -42,6 +42,38 @@ body {
     overflow-x: hidden;
     cursor: none;
 }
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links,
+  .nav-actions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #111;
+    flex-direction: column;
+    padding: 20px;
+    display: none;
+  }
+
+  nav.mobile-open .nav-links,
+  nav.mobile-open .nav-actions {
+    display: flex;
+  }
+}
 
 /* ────────────────────────────────────────
    3. CUSTOM CURSOR
@@ -1684,7 +1716,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   16. INDEX — Collections
+16. INDEX — Collections
 ════════════════════════════════════════ */
 .collections-section {
     padding: 100px 80px 60px;
@@ -2014,7 +2046,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   17. INDEX — How It Works
+17. INDEX — How It Works
 ════════════════════════════════════════ */
 .how-section {
     padding: 100px 80px;
@@ -2090,7 +2122,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   18. INDEX — Booking section
+18. INDEX — Booking section
 ════════════════════════════════════════ */
 .booking-section {
     padding: 100px 80px;
@@ -2159,7 +2191,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   19. INDEX — Testimonials
+19. INDEX — Testimonials
 ════════════════════════════════════════ */
 .testi-section {
     padding: 100px 80px;
@@ -2239,7 +2271,7 @@ label {
 
 
 /* ════════════════════════════════════════
-   20. ABOUT — Hero
+20. ABOUT — Hero
 ════════════════════════════════════════ */
 .about-hero {
     min-height: 100vh;
@@ -2271,6 +2303,9 @@ label {
     flex-direction: column;
     justify-content: center;
     padding: 60px 60px 80px 80px;
+}
+.page-hero-eyebrow{
+    padding-top: 20px;
 }
 
 .hero-eyebrow {
@@ -3576,17 +3611,19 @@ label {
     }
 }
 
-@media(max-width:640px) {
+@media(max-width:768px) {
     nav {
-        padding: 0 20px
+        padding: 0 24px
     }
 
-    .nav-links {
+    .nav-links,
+    .nav-actions {
         display: none
     }
 
-    .hero .hero-left {
-        padding: 48px 24px
+    /* About */
+    .about-hero .hero-left {
+        padding: 48px 24px 60px
     }
 
     .collections-section,
@@ -3727,4 +3764,39 @@ label {
     .mini-form-row {
         grid-template-columns: 1fr
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------MY Forced rule----------------*/
+/*------------Nav mobile------------*/
+.nav-mobile-actions {
+    display: none;
+}
+
+@media(max-width:768px) {
+    .nav-mobile-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        
+    }
+    .nav-mobile-actions a{
+        color: var(--white);
+        text-decoration: none;
+    }
+    .nav-mobile-actions a:hover{
+        color: var(--amber);
+    }   
 }
