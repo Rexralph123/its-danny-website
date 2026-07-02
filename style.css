@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════
-   DANNY.CSS — ITS DANNY African Couture
-   Unified stylesheet for Index, About, and Shop pages
+DANNY.CSS — ITS DANNY African Couture
+Unified stylesheet for Index, About, and Shop pages
    ═══════════════════════════════════════════════════════════ */
 
 /* ────────────────────────────────────────
-   1. DESIGN TOKENS
+1. DESIGN TOKENS
 ──────────────────────────────────────── */
 :root {
     --ink: #0A0806;
@@ -20,7 +20,7 @@
 }
 
 /* ────────────────────────────────────────
-   2. RESET & BASE
+2. RESET & BASE
 ──────────────────────────────────────── */
 *,
 *::before,
@@ -43,40 +43,17 @@ body {
     cursor: none;
 }
 .menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links,
-  .nav-actions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #111;
-    flex-direction: column;
-    padding: 20px;
     display: none;
-  }
-
-  nav.mobile-open .nav-links,
-  nav.mobile-open .nav-actions {
-    display: flex;
-  }
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
 }
+
 
 /* ────────────────────────────────────────
-   3. CUSTOM CURSOR
+3. CUSTOM CURSOR
 ──────────────────────────────────────── */
 .cursor {
     position: fixed;
@@ -156,7 +133,7 @@ body:has(button:hover) .cursor-ring {
 }
 
 /* ════════════════════════════════════════
-   6. NAVBAR  (shared all pages)
+6. NAVBAR  (shared all pages)
 ════════════════════════════════════════ */
 nav {
     position: fixed;
@@ -291,8 +268,33 @@ nav {
     justify-content: center;
 }
 
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links,
+    .nav-actions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #111;
+        flex-direction: column;
+        padding: 20px;
+        display: none;
+    }
+
+    nav.mobile-open .nav-links,
+    nav.mobile-open .nav-actions {
+        display: flex;
+    }
+    }
+
+
 /* ════════════════════════════════════════
-   7. FOOTER  (shared all pages)
+7. FOOTER  (shared all pages)
 ════════════════════════════════════════ */
 footer {
     background: var(--ink);
@@ -589,7 +591,7 @@ footer {
 }
 
 /* ════════════════════════════════════════
-   9. SHARED BUTTONS
+9. SHARED BUTTONS
 ════════════════════════════════════════ */
 /* Amber fill with cream sweep on hover — used in hero, CTA, shop */
 .btn-primary,
@@ -735,7 +737,7 @@ footer {
 }
 
 /* ════════════════════════════════════════
-   10. SHARED SECTION HEADERS
+10. SHARED SECTION HEADERS
 ════════════════════════════════════════ */
 .section-eyebrow {
     font-size: 10px;
@@ -784,8 +786,8 @@ footer {
 }
 
 /* ════════════════════════════════════════
-   11. SHARED FORM COMPONENTS
-       (Booking form, overlay, inputs)
+11. SHARED FORM COMPONENTS
+    (Booking form, overlay, inputs)
 ════════════════════════════════════════ */
 
 /* ── Booking form container ── */
@@ -1195,7 +1197,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   12. PRODUCT MODAL  (shared Index + Shop)
+12. PRODUCT MODAL  (shared Index + Shop)
 ════════════════════════════════════════ */
 .modal-overlay {
     position: fixed;
@@ -1400,7 +1402,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   13. SCROLL REVEAL  (About page)
+13. SCROLL REVEAL  (About page)
 ════════════════════════════════════════ */
 .reveal {
     opacity: 0;
@@ -1428,7 +1430,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   14. ANIMATIONS
+14. ANIMATIONS
 ════════════════════════════════════════ */
 @keyframes fadeUp {
     from {
@@ -1482,12 +1484,12 @@ label {
 }
 
 
-/* ╔═══════════════════════════════════════════════════════════╗
-   ║  PAGE-SPECIFIC SECTIONS                                  ║
-   ╚═══════════════════════════════════════════════════════════╝ */
+/*  ╔═══════════════════════════════════════════════════════════╗
+    ║  PAGE-SPECIFIC SECTIONS                                   ║
+    ╚═══════════════════════════════════════════════════════════╝ */
 
 /* ════════════════════════════════════════
-   15. INDEX — Hero
+15. INDEX — Hero
 ════════════════════════════════════════ */
 .hero {
     min-height: 100vh;
@@ -2414,7 +2416,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   21. ABOUT — Story
+21. ABOUT — Story
 ════════════════════════════════════════ */
 .story-section {
     padding: 120px 80px;
@@ -2520,7 +2522,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   22. ABOUT — Values
+22. ABOUT — Values
 ════════════════════════════════════════ */
 .values-section {
     padding: 100px 80px;
@@ -2603,7 +2605,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   23. ABOUT — Founder
+23. ABOUT — Founder
 ════════════════════════════════════════ */
 .founder-section {
     padding: 120px 80px;
@@ -2715,7 +2717,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   24. ABOUT — Timeline
+24. ABOUT — Timeline
 ════════════════════════════════════════ */
 .process-section {
     padding: 100px 80px;
@@ -2803,7 +2805,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   25. ABOUT — Craft
+25. ABOUT — Craft
 ════════════════════════════════════════ */
 .craft-section {
     padding: 100px 80px;
@@ -2863,7 +2865,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   26. ABOUT — CTA
+26. ABOUT — CTA
 ════════════════════════════════════════ */
 .cta-section {
     padding: 120px 80px;
@@ -2946,7 +2948,7 @@ label {
 
 
 /* ════════════════════════════════════════
-   27. SHOP — Page hero
+27. SHOP — Page hero
 ════════════════════════════════════════ */
 .page-hero {
     min-height: 340px;
@@ -3052,7 +3054,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   28. SHOP — Layout + Sidebar
+28. SHOP — Layout + Sidebar
 ════════════════════════════════════════ */
 .shop-wrapper {
     display: grid;
@@ -3245,7 +3247,7 @@ label {
 }
 
 /* ════════════════════════════════════════
-   29. SHOP — Main content + Toolbar
+29. SHOP — Main content + Toolbar
 ════════════════════════════════════════ */
 .main-content {
     padding: 44px 56px 80px
