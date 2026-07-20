@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About — ITS DANNY African Couture</title>
+    <title>About ITS DANNY African Couture</title>
     <link rel="icon" type="image/png" href="Images/logo black bg.jpeg">
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Barlow:wght@300;400;500;600&display=swap"
@@ -201,6 +201,79 @@
             </div>
         </div>
     </section>
+
+
+    <!-- ══ FOUNDER GALLERY / CEO SHOWCASE ══ -->
+<section class="gallery-section" id="founder-gallery">
+  <div class="section-eyebrow">Meet Danny</div>
+  <h2 class="section-title">Behind The<br>Name</h2>
+
+  <div class="marquee-row" data-speed="42">
+    <div class="marquee-track" id="founderTrack1"></div>
+  </div>
+  <div class="marquee-row reverse" data-speed="55">
+    <div class="marquee-track" id="founderTrack2"></div>
+  </div>
+</section>
+
+<!-- ══ VIDEO SHOWCASE ══ -->
+<section class="video-section" id="videos">
+  <div class="section-eyebrow">In Motion</div>
+  <h2 class="section-title">Watch The<br>Story</h2>
+
+  <div class="video-grid">
+    <div class="video-card">
+      <video
+        class="video-el"
+        id="video1"
+        poster="Images/video1-poster.jpg"
+        preload="metadata"
+        playsinline
+        controls
+      >
+        <source src="Images/danny-story.mp4" type="video/mp4"/>
+        Your browser doesn't support video.
+      </video>
+      <button class="video-play-btn" onclick="playVideo('video1', this)">
+        <span class="play-icon">▶</span>
+      </button>
+      <div class="video-caption">
+        <strong>Meet the Founder</strong>
+        <span>Danny on why he started ITS DANNY</span>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <video
+        class="video-el"
+        id="video2"
+        poster="Images/video2-poster.jpg"
+        preload="metadata"
+        playsinline
+        controls
+      >
+        <source src="Images/studio-tour.mp4" type="video/mp4"/>
+        Your browser doesn't support video.
+      </video>
+      <button class="video-play-btn" onclick="playVideo('video2', this)">
+        <span class="play-icon">▶</span>
+      </button>
+      <div class="video-caption">
+        <strong>Inside the Studio</strong>
+        <span>A look at where every piece is made</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOUNDER GALLERY LIGHTBOX ══ -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
+</div>
+
 
     <!-- ══ TIMELINE ══ -->
     <section class="process-section">
@@ -414,6 +487,90 @@
         (function anim() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(anim); })();
         const obs = new IntersectionObserver(entries => entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); } }), { threshold: .12 });
         document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+
+
+
+
+
+        /* ══ FOUNDER GALLERY / CEO SHOWCASE ══ */
+const founderImages = [
+  { src:'Images/Danny Havesters.jpeg', caption:'Danny — Founder' },
+  { src:'Images/Daniel & 3 isiagu.jpg', caption:'Fitting session' },
+  { src:'Images/Daniel & Brother business.jpg', caption:'Building the brand' },
+  { src:'Images/Dan NA BRO Hero about.jpeg', caption:'ITS DANNY studio' },
+  { src:'Images/CEO bridge.jpeg', caption: 'ITS Danny strolling'},
+  { src:'Images/ceo on chess field.jpeg', caption: 'ITS Danny Chess field'},
+  { src:'Images/CEO on hat.jpeg', caption: 'ITS Danny'},
+  { src:'Images/ceo on measuring tape.jpeg', caption: 'ITS Danny strolling'},
+  { src:'Images/Hunter brown.jpeg', caption: 'ITS Danny strolling'},
+  { src:'Images/hot ceo.jpeg', caption: 'ITS Danny strolling'},
+];
+
+let founderLightboxIndex = 0;
+
+function renderFounderGallery() {
+  const track1 = document.getElementById('founderTrack1');
+  const track2 = document.getElementById('founderTrack2');
+  if (!track1 || !track2) return;
+
+  const doubled = [...founderImages, ...founderImages];
+  track1.innerHTML = doubled.map((img,i)=>`
+    <div class="marquee-item" onclick="openFounderLightbox(${i % founderImages.length})">
+      <img src="${img.src}" alt="${img.caption}" loading="lazy"/>
+    </div>`).join('');
+
+  const shifted = [...founderImages.slice(2), ...founderImages.slice(0,2)];
+  const doubledShifted = [...shifted, ...shifted];
+  track2.innerHTML = doubledShifted.map((img)=>{
+    const originalIndex = founderImages.findIndex(f=>f.src===img.src);
+    return `<div class="marquee-item" onclick="openFounderLightbox(${originalIndex})">
+      <img src="${img.src}" alt="${img.caption}" loading="lazy"/>
+    </div>`;
+  }).join('');
+}
+
+function openFounderLightbox(index) {
+  founderLightboxIndex = index;
+  document.getElementById('lightboxImg').src = founderImages[index].src;
+  document.getElementById('lightboxOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function navLightbox(dir) {
+  founderLightboxIndex = (founderLightboxIndex + dir + founderImages.length) % founderImages.length;
+  document.getElementById('lightboxImg').src = founderImages[founderLightboxIndex].src;
+}
+document.getElementById('lightboxOverlay').addEventListener('click', function(e){
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', function(e){
+  if (!document.getElementById('lightboxOverlay').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+
+renderFounderGallery();
+
+/* ══ VIDEO SHOWCASE ══ */
+function playVideo(id, btn) {
+  const vid = document.getElementById(id);
+  btn.classList.add('hidden');
+  vid.play();
+}
+document.querySelectorAll('.video-el').forEach(vid => {
+  vid.addEventListener('pause', () => {
+    const btn = vid.nextElementSibling;
+    if (btn && btn.classList.contains('video-play-btn')) btn.classList.remove('hidden');
+  });
+  vid.addEventListener('play', () => {
+    const btn = vid.nextElementSibling;
+    if (btn && btn.classList.contains('video-play-btn')) btn.classList.add('hidden');
+  });
+});
     </script>
 </body>
 

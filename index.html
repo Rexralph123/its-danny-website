@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ITS DANNY LIMITED — African Men's Couture</title>
+<title>ITS DANNY LIMITED | African Men's Couture</title>
 <link rel="icon" type="image/png" href="Images/logo black bg.jpeg">
 
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,300;1,500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
@@ -95,6 +95,82 @@
   </div>
   <div class="product-grid" id="productGrid"></div>
 </section>
+
+
+
+<!-- ══ GALLERY / LOOKBOOK ══ -->
+<section class="gallery-section" id="gallery">
+  <div class="section-eyebrow">Lookbook</div>
+  <h2 class="section-title">See The<br>Craft</h2>
+
+  <div class="marquee-row" data-speed="42">
+    <div class="marquee-track" id="marqueeTrack1"></div>
+  </div>
+  <div class="marquee-row reverse" data-speed="55">
+    <div class="marquee-track" id="marqueeTrack2"></div>
+  </div>
+</section>
+
+<!-- ══ GALLERY LIGHTBOX ══ -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
+</div>
+
+
+<!-- ══ VIDEO SHOWCASE ══ -->
+<section class="video-section" id="videos">
+  <div class="section-eyebrow">In Motion</div>
+  <h2 class="section-title">Watch The<br>Craft Come Alive</h2>
+
+  <div class="video-grid">
+    <div class="video-card">
+      <video
+        class="video-el"
+        id="video1"
+        poster="Images/video1-poster.jpg"
+        preload="metadata"
+        playsinline
+        controls
+      >
+        <source src="Images/showcase-1.mp4" type="video/mp4"/>
+        Your browser doesn't support video.
+      </video>
+      <button class="video-play-btn" onclick="playVideo('video1', this)">
+        <span class="play-icon">▶</span>
+      </button>
+      <div class="video-caption">
+        <strong>Behind the Seams</strong>
+        <span>A day in the Danny studio</span>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <video
+        class="video-el"
+        id="video2"
+        poster="Images/video2-poster.jpg"
+        preload="metadata"
+        playsinline
+        controls
+      >
+        <source src="Images/showcase-2.mp4" type="video/mp4"/>
+        Your browser doesn't support video.
+      </video>
+      <button class="video-play-btn" onclick="playVideo('video2', this)">
+        <span class="play-icon">▶</span>
+      </button>
+      <div class="video-caption">
+        <strong>The Agbada Royale</strong>
+        <span>From fabric to finished piece</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ══ HOW IT WORKS ══ -->
 <section class="how-section" id="how">
@@ -509,6 +585,72 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.le
 (function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
 
 renderProducts();
+
+
+/*=============================LOOKBOOK====================================*/
+
+/* ══ GALLERY / LOOKBOOK ══ */
+const galleryImages = [
+  { src:'Images/Daniel & 3 isiagu.jpg', caption:'Isi Agu' },
+  { src:'Images/Wine Senator.jpg', caption:'Wine Senator' },
+  { src:'Images/Sanitor 2.jpeg', caption:'Brown Senator' },
+  { src:'Images/Hunter brown.jpeg', caption:'Classic set' },
+  { src:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=700&q=80', caption:'Ankara Dashiki' },
+  { src:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=700&q=80', caption:'Embroidered Kaftan' },
+  { src:'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=700&q=80', caption:'Linen Casual' },
+  { src:'https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=700&q=80', caption:'Mini Senator' }
+];
+
+let lightboxIndex = 0;
+
+function renderMarquee() {
+  // Duplicate the list so the CSS animation (-50%) loops seamlessly
+  const doubled = [...galleryImages, ...galleryImages];
+  const track1 = document.getElementById('marqueeTrack1');
+  const track2 = document.getElementById('marqueeTrack2');
+  if (!track1 || !track2) return;
+
+  track1.innerHTML = doubled.map((img,i)=>`
+    <div class="marquee-item" onclick="openLightbox(${i % galleryImages.length})">
+      <img src="${img.src}" alt="${img.caption}" loading="lazy"/>
+    </div>`).join('');
+
+  // second row: offset by a couple images and reversed order for visual variety
+  const shifted = [...galleryImages.slice(3), ...galleryImages.slice(0,3)];
+  const doubledShifted = [...shifted, ...shifted];
+  track2.innerHTML = doubledShifted.map((img)=>{
+    const originalIndex = galleryImages.findIndex(g=>g.src===img.src);
+    return `<div class="marquee-item" onclick="openLightbox(${originalIndex})">
+      <img src="${img.src}" alt="${img.caption}" loading="lazy"/>
+    </div>`;
+  }).join('');
+}
+
+function openLightbox(index) {
+  lightboxIndex = index;
+  document.getElementById('lightboxImg').src = galleryImages[index].src;
+  document.getElementById('lightboxOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightboxOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function navLightbox(dir) {
+  lightboxIndex = (lightboxIndex + dir + galleryImages.length) % galleryImages.length;
+  document.getElementById('lightboxImg').src = galleryImages[lightboxIndex].src;
+}
+document.getElementById('lightboxOverlay').addEventListener('click', function(e){
+  if (e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', function(e){
+  if (!document.getElementById('lightboxOverlay').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+
+renderMarquee();
 </script>
 </body>
 </html>
