@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About ITS DANNY African Couture</title>
-    <link rel="icon" type="image/png" href="Images/logo black bg.jpeg">
+    <link rel="icon" type="image/png" href="public/images/logo black bg.jpeg">
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Barlow:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
@@ -22,7 +22,7 @@
     <!-- ══ NAVBAR ══ -->
 <nav>
     <a href="index.html" class="nav-logo">
-    <div class="logo-brand"><img src="Images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
+    <div class="logo-brand"><img src="public/images/logo_no_bg.png" alt="Company logo">ITS DANNY</div>
     <span>African<br>Couture</span>
     </a>
 
@@ -76,7 +76,7 @@
 
         <!-- Single hero image -->
         <div class="hero-right" style="display:block;position:relative;overflow:hidden;">
-            <img src="Images/Dan NA BRO Hero about.jpeg" alt="Elegance in African menswear"
+            <img src="public/images/Dan-NA-BRO-Hero-about.jpeg" alt="Elegance in African menswear"
                 style="width:100%;height:100%;object-fit:cover;object-position:top center;filter:brightness(.72) saturate(.9);" />
             <!-- gradient overlay -->
             <div
@@ -110,10 +110,10 @@
         <div class="story-img-col reveal-right">
             <div style="position:relative;display:inline-block;width:100%">
                 <img class="story-img-main"
-                    src="Images/Daniel & 3 isiagu.jpg"
+                    src="public/images/daniel-3-isiagu.jpg"
                     alt="Danny craftsmanship" />
                 <img class="story-img-accent"
-                    src="Images/Daniel & Brother business.jpg" alt="Detail work" />
+                    src="public/images/daniel-brother-business.jpg" alt="Detail work" />
                 <div class="story-img-label">EST. 2026</div>
             </div>
         </div>
@@ -173,7 +173,7 @@
     <section class="founder-section">
         <div class="founder-img-col reveal-left">
             <div class="founder-img-frame">
-                <img class="founder-img" src="Images/Danny Havesters.jpeg"
+                <img class="founder-img" src="public/images/Danny Havesters.jpeg"
                     alt="Danny — Founder" />
                 <div class="founder-tag">
                     <span class="founder-tag-name">Danny</span>
@@ -226,12 +226,12 @@
       <video
         class="video-el"
         id="video1"
-        poster="Images/video1-poster.jpg"
+        poster="images/video1-poster.jpg"
         preload="metadata"
         playsinline
         controls
       >
-        <source src="Images/danny-story.mp4" type="video/mp4"/>
+        <source src="images/danny-story.mp4" type="video/mp4"/>
         Your browser doesn't support video.
       </video>
       <button class="video-play-btn" onclick="playVideo('video1', this)">
@@ -247,12 +247,12 @@
       <video
         class="video-el"
         id="video2"
-        poster="Images/video2-poster.jpg"
+        poster="images/video2-poster.jpg"
         preload="metadata"
         playsinline
         controls
       >
-        <source src="Images/studio-tour.mp4" type="video/mp4"/>
+        <source src="images/studio-tour.mp4" type="video/mp4"/>
         Your browser doesn't support video.
       </video>
       <button class="video-play-btn" onclick="playVideo('video2', this)">
@@ -429,7 +429,7 @@
         <div class="footer-top">
             <div>
                 <div class="footer-brand-name">
-                    <img src="Images/logo_no_bg.png" alt="Company logo"/>
+                    <img src="public/images/logo_no_bg.png" alt="Company logo"/>
                     </img>
                     ITS DANNY
                 </div>
@@ -492,17 +492,17 @@
 
 
 
-    /* ══ FOUNDER GALLERY / CEO SHOWCASE ══ */
+        /* ══ FOUNDER GALLERY / CEO SHOWCASE ══ */
 const founderImages = [
-  { src:'Images/Danny Havesters.jpeg', caption:'Danny — Founder' },
-  { src:'Images/Daniel & 3 isiagu.jpg', caption:'Fitting session' },
-  { src:'Images/Daniel & Brother business.jpg', caption:'Building the brand' },
-  { src:'Images/CEO-bridge.jpeg', caption: 'ITS Danny strolling'},
-  { src:'Images/ceo-on-chess field.jpeg', caption: 'ITS Danny Chess field'},
-  { src:'Images/Dan-NA-BRO Hero about.jpeg', caption: 'ITS Danny'},
-  { src:'Images/ceo-on-measuring tape.jpeg', caption: 'ITS Danny strolling'},
-  { src:'Images/Hunter-brown.jpeg', caption: 'ITS Danny strolling'},
-  { src:'Images/hot-ceo.jpeg', caption: 'ITS Danny strolling'},
+  { src:'public/images/Danny Havesters.jpeg', caption:'Danny — Founder' },
+  { src:'public/images/daniel-3-isiagu.jpg', caption:'Fitting session' },
+  { src:'public/images/daniel-brother-business.jpg', caption:'Building the brand' },
+  { src:'public/images/Dan-NA-BRO-Hero-about.jpeg', caption:'ITS DANNY studio' },
+  { src:'public/images/CEO-bridge.jpeg', caption: 'ITS Danny strolling'},
+  { src:'public/images/ceo-on-chessfield.jpeg', caption: 'ITS Danny Chess field'},
+  { src:'public/images/ceo-on-measuring tape.jpeg', caption: 'ITS Danny strolling'},
+  { src:'public/images/hunter-brown.jpeg', caption: 'ITS Danny strolling'},
+  { src:'public/images/hot-ceo.jpeg', caption: 'ITS Danny strolling'},
 ];
 
 let founderLightboxIndex = 0;
