@@ -26,7 +26,6 @@
     <span>African<br>Couture</span>
     </a>
 
-
     <!-- Mobile Menu Button -->
     <button class="menu-toggle" onclick="toggleMenu()">
         ☰
@@ -54,7 +53,6 @@
     </div>
 
 </nav>
-
 
     <!-- ══ HERO — single image ══ -->
     <section class="about-hero">
@@ -202,7 +200,6 @@
         </div>
     </section>
 
-
     <!-- ══ FOUNDER GALLERY / CEO SHOWCASE ══ -->
 <section class="gallery-section" id="founder-gallery">
   <div class="section-eyebrow">Meet Danny</div>
@@ -222,16 +219,20 @@
   <h2 class="section-title">Watch The<br>Story</h2>
 
   <div class="video-grid">
+    <!-- Video 1 temporarily disabled — danny-story.mp4 and video1-poster.jpg
+         don't exist yet. Add them to public/videos/ and public/images/
+         respectively, then uncomment this block and update the src/poster paths. -->
+    <!--
     <div class="video-card">
       <video
         class="video-el"
         id="video1"
-        poster="images/video1-poster.jpg"
+        poster="public/images/video1-poster.jpg"
         preload="metadata"
         playsinline
         controls
       >
-        <source src="images/danny-story.mp4" type="video/mp4"/>
+        <source src="public/videos/danny-story.mp4" type="video/mp4"/>
         Your browser doesn't support video.
       </video>
       <button class="video-play-btn" onclick="playVideo('video1', this)">
@@ -242,22 +243,46 @@
         <span>Danny on why he started ITS DANNY</span>
       </div>
     </div>
+    -->
+
+    <div class="video-card">
+      <video
+        class="video-el"
+        id="video-ceo-daniel"
+        preload="metadata"
+        playsinline
+        controls
+      >
+        <source src="public/videos/CEO%20DANIEL.mp4" type="video/mp4"/>
+        Your browser doesn't support video.
+      </video>
+
+      <button class="video-play-btn" onclick="playVideo('video-ceo-daniel', this)">
+        <span class="play-icon">▶</span>
+      </button>
+
+      <div class="video-caption">
+        <strong>CEO Daniel</strong>
+        <span>A word from the man behind ITS DANNY</span>
+      </div>
+    </div>
 
     <div class="video-card">
       <video
         class="video-el"
         id="video2"
-        poster="images/video2-poster.jpg"
         preload="metadata"
         playsinline
         controls
       >
-        <source src="images/studio-tour.mp4" type="video/mp4"/>
+        <source src="public/videos/WhatsApp%20Video%202026-09-03%20at%2011.23.00%20AM.mp4" type="video/mp4"/>
         Your browser doesn't support video.
       </video>
+
       <button class="video-play-btn" onclick="playVideo('video2', this)">
         <span class="play-icon">▶</span>
       </button>
+
       <div class="video-caption">
         <strong>Inside the Studio</strong>
         <span>A look at where every piece is made</span>
@@ -273,7 +298,6 @@
   <img class="lightbox-img" id="lightboxImg" src="" alt=""/>
   <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
 </div>
-
 
     <!-- ══ TIMELINE ══ -->
     <section class="process-section">
@@ -438,7 +462,7 @@
             </div>
             <div>
                 <div class="footer-heading">Shop</div>
-                <div class="footer-links"><a href="Shop.html">Agbada</a><a href="Shop.html">Senator</a><a
+                <div class="footer-links"><a href="Shop.html">Agbada</a><a href="Shop.html">Senator</a>
                         href="Shop.html">Dashiki</a><a href="Shop.html">Boys Collection</a><a href="Shop.html">New
                         Arrivals</a></div>
             </div>
@@ -449,9 +473,9 @@
             </div>
             <div>
                 <div class="footer-heading">Contact</div>
-                <div class="footer-links"><a href="#">Lagos, Nigeria</a><a
+                <div class="footer-links"><a href="#">Lagos, Nigeria</a>
                         href="https://wa.me/2348105083979?text=Hello%20Its%20Danny%20Limited%2C%20I%27m%20interested%20in%20your%20services">WhatsApp
-                        Us</a><a href="mailto:itsdannysign@gmail.com">itsdannysign@gmail.com</a><a
+                        Us</a><a href="mailto:itsdannysign@gmail.com">itsdannysign@gmail.com</a>
                         href="https://www.instagram.com/itsdannyltd?igsh=MTJ2dnJraTc3NmI1NQ==">Instagram</a></div>
             </div>
         </div>
@@ -478,19 +502,12 @@
             document.querySelector('nav').classList.toggle('mobile-open');
         }
 
-
-
-
         const dot = document.querySelector('.cursor-dot'), ring = document.querySelector('.cursor-ring');
         let mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
         (function anim() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(anim); })();
         const obs = new IntersectionObserver(entries => entries.forEach(el => { if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); } }), { threshold: .12 });
         document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
-
-
-
-
 
         /* ══ FOUNDER GALLERY / CEO SHOWCASE ══ */
 const founderImages = [
