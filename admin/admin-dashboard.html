@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Dashboard | ITS DANNY</title>
+<link rel="icon" type="images/png" href="/public/images/logo black bg.jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/Supabase client.js"></script>
+</head>
+<body class="admin-page">
+
+<div id="gate">Checking session…</div>
+
+<div id="app" style="display:none">
+
+  <header class="top">
+    <div class="brand">ITS DANNY <span>ADMIN</span></div>
+    <div class="top-right">
+      <span class="admin-email" id="adminEmail"></span>
+      <button class="btn-logout" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-view="bookings" onclick="switchTab('bookings')">Bookings</button>
+    <button class="tab-btn" data-view="products" onclick="switchTab('products')">Products</button>
+  </nav>
+
+  <main>
+    <!-- ══ BOOKINGS VIEW ══ -->
+    <section class="view active" id="view-bookings">
+      <div class="view-head">
+        <div class="view-title">Fitting Bookings</div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="stat-pills" id="bookingStats"></div>
+          <select class="status-filter" id="bookingFilter" onchange="loadBookings()">
+            <option value="all">All statuses</option>
+            <option value="new">New</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th><th>Contact</th><th>Fitting</th><th>Design / Order</th><th>Notes</th><th>Status</th><th>Booked</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsBody"></tbody>
+        </table>
+        <div class="empty-state" id="bookingsEmpty" style="display:none">No bookings yet.</div>
+      </div>
+    </section>
+
+    <!-- ══ PRODUCTS VIEW ══ -->
+    <section class="view" id="view-products">
+      <div class="view-head">
+        <div class="view-title">Shop Products</div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <select class="cat-filter" id="productFilter" onchange="loadProducts()">
+            <option value="all">All categories</option>
+            <option value="agbada">Agbada</option>
+            <option value="senator">Senator</option>
+            <option value="dashiki">Dashiki</option>
+            <option value="boys">Boys</option>
+            <option value="casual">Casual</option>
+          </select>
+          <button class="btn-amber" onclick="openProductModal()">+ Add Product</button>
+        </div>
+      </div>
+      <div class="product-grid-admin" id="productsGrid"></div>
+      <div class="empty-state" id="productsEmpty" style="display:none">No products yet — add your first one.</div>
+    </section>
+  </main>
+
+</div>
+
+<!-- ══ PRODUCT MODAL ══ -->
+<div class="admin-modal-overlay" id="productModal">
+  <div class="admin-modal-box">
+    <div class="admin-modal-title" id="productModalTitle">Add Product</div>
+    <form id="productForm">
+      <input type="hidden" id="pId"/>
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" id="pName" placeholder="Agbada Royale — Men" required/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Category</label>
+          <select id="pCat" required>
+            <option value="agbada">Agbada</option>
+            <option value="senator">Senator</option>
+            <option value="dashiki">Dashiki</option>
+            <option value="boys">Boys</option>
+            <option value="casual">Casual</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Price (₦)</label>
+          <input type="number" id="pPrice" placeholder="150000" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tag (optional)</label>
+          <input type="text" id="pTag" placeholder="New / Boys / leave blank"/>
+        </div>
+        <div class="form-group">
+          <label>Sort Order</label>
+          <input type="number" id="pSort" placeholder="0"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Image URL</label>
+        <input type="text" id="pImg" placeholder="public/images/your-photo.jpg or https://..." required/>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="pDesc" placeholder="Short description shown in the product modal"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Swatch Colours (comma-separated hex)</label>
+        <input type="text" id="pSwatches" placeholder="#0D0D0D, #2C1A0E, #7D6608"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;letter-spacing:.1em">
+            <input type="checkbox" id="pFeatured" style="width:auto"/> Featured
+          </label>
+        </div>
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:8px;letter-spacing:.1em">
+            <input type="checkbox" id="pIsNew" style="width:auto"/> Mark as New
+          </label>
+        </div>
+      </div>
+      <div class="admin-modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeProductModal()">Cancel</button>
+        <button type="submit" class="btn-amber btn-save" id="pSaveBtn">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   AUTH GUARD
+   ══════════════════════════════════════════════════════════ */
+(async () => {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (!session) { window.location.href = 'admin-login.html'; return; }
+  document.getElementById('adminEmail').textContent = session.user.email;
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadBookings();
+  loadProducts();
+})();
+
+supabaseClient.auth.onAuthStateChange((event) => {
+  if (event === 'SIGNED_OUT') window.location.href = 'admin-login.html';
+});
+
+function logout() { supabaseClient.auth.signOut(); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ══════════════════════════════════════════════════════════
+   TABS
+   ══════════════════════════════════════════════════════════ */
+function switchTab(view) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + view));
+}
+
+/* ══════════════════════════════════════════════════════════
+   BOOKINGS
+   ══════════════════════════════════════════════════════════ */
+async function loadBookings() {
+  const filter = document.getElementById('bookingFilter').value;
+  let query = supabaseClient.from('bookings').select('*').order('created_at', { ascending: false });
+  if (filter !== 'all') query = query.eq('status', filter);
+
+  const { data, error } = await query;
+  const body = document.getElementById('bookingsBody');
+  const empty = document.getElementById('bookingsEmpty');
+
+  if (error) { showToast('Error loading bookings: ' + error.message); return; }
+
+  if (!data || data.length === 0) {
+    body.innerHTML = ''; empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    body.innerHTML = data.map(b => `
+      <tr>
+        <td class="cell-name">${escapeHtml(b.first_name)} ${escapeHtml(b.last_name)}</td>
+        <td class="cell-muted">${escapeHtml(b.email)}<br/>${escapeHtml(b.phone)}</td>
+        <td class="cell-muted">${escapeHtml(b.fitting_date)}<br/>${escapeHtml(b.fitting_type)}</td>
+        <td class="cell-design">${escapeHtml(b.design || '—')}</td>
+        <td class="cell-design">${escapeHtml(b.notes || '—')}</td>
+        <td>
+          <select class="status-select status-${b.status}" onchange="updateBookingStatus(${b.id}, this.value, this)">
+            <option value="new" ${b.status === 'new' ? 'selected' : ''}>New</option>
+            <option value="confirmed" ${b.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+            <option value="completed" ${b.status === 'completed' ? 'selected' : ''}>Completed</option>
+            <option value="cancelled" ${b.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+          </select>
+        </td>
+        <td class="cell-muted">${new Date(b.created_at).toLocaleDateString()}</td>
+      </tr>`).join('');
+  }
+
+  // Stat pills (counts by status, unfiltered)
+  const { data: all } = await supabaseClient.from('bookings').select('status');
+  if (all) {
+    const counts = { new: 0, confirmed: 0, completed: 0, cancelled: 0 };
+    all.forEach(r => { if (counts[r.status] !== undefined) counts[r.status]++; });
+    document.getElementById('bookingStats').innerHTML = `
+      <span class="pill"><strong>${counts.new}</strong> New</span>
+      <span class="pill"><strong>${counts.confirmed}</strong> Confirmed</span>
+      <span class="pill"><strong>${all.length}</strong> Total</span>`;
+  }
+}
+
+async function updateBookingStatus(id, status, selectEl) {
+  const { error } = await supabaseClient.from('bookings').update({ status }).eq('id', id);
+  if (error) { showToast('Could not update status: ' + error.message); return; }
+  selectEl.className = 'status-select status-' + status;
+  showToast('Booking marked as ' + status);
+  loadBookings();
+}
+
+/* ══════════════════════════════════════════════════════════
+   PRODUCTS
+   ══════════════════════════════════════════════════════════ */
+let allProducts = [];
+
+async function loadProducts() {
+  const filter = document.getElementById('productFilter').value;
+  let query = supabaseClient.from('products').select('*').order('sort_order', { ascending: true });
+  if (filter !== 'all') query = query.eq('cat', filter);
+
+  const { data, error } = await query;
+  const grid = document.getElementById('productsGrid');
+  const empty = document.getElementById('productsEmpty');
+
+  if (error) { showToast('Error loading products: ' + error.message); return; }
+  allProducts = data || [];
+
+  if (allProducts.length === 0) {
+    grid.innerHTML = ''; empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    grid.innerHTML = allProducts.map(p => `
+      <div class="p-card">
+        <img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" onerror="this.style.opacity=0.3"/>
+        <div class="p-card-body">
+          <div class="p-card-name">${escapeHtml(p.name)}</div>
+          <div class="p-card-meta">${escapeHtml(p.cat)}${p.tag ? ' • ' + escapeHtml(p.tag) : ''}</div>
+          <div class="p-card-price">₦${Number(p.price).toLocaleString()}</div>
+          <div class="p-card-actions">
+            <button class="btn-mini" onclick="openProductModal(${p.id})">Edit</button>
+            <button class="btn-mini danger" onclick="deleteProduct(${p.id})">Delete</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+}
+
+function openProductModal(id) {
+  const modal = document.getElementById('productModal');
+  const title = document.getElementById('productModalTitle');
+  const form = document.getElementById('productForm');
+  form.reset();
+  document.getElementById('pId').value = '';
+
+  if (id) {
+    const p = allProducts.find(x => x.id === id);
+    if (!p) return;
+    title.textContent = 'Edit Product';
+    document.getElementById('pId').value = p.id;
+    document.getElementById('pName').value = p.name;
+    document.getElementById('pCat').value = p.cat;
+    document.getElementById('pPrice').value = p.price;
+    document.getElementById('pTag').value = p.tag || '';
+    document.getElementById('pSort').value = p.sort_order || 0;
+    document.getElementById('pImg').value = p.img;
+    document.getElementById('pDesc').value = p.desc || '';
+    document.getElementById('pSwatches').value = (p.swatches || []).join(', ');
+    document.getElementById('pFeatured').checked = !!p.featured;
+    document.getElementById('pIsNew').checked = !!p.is_new;
+  } else {
+    title.textContent = 'Add Product';
+  }
+  modal.classList.add('open');
+}
+
+function closeProductModal() { document.getElementById('productModal').classList.remove('open'); }
+
+document.getElementById('productModal').addEventListener('click', (e) => {
+  if (e.target.id === 'productModal') closeProductModal();
+});
+
+document.getElementById('productForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const saveBtn = document.getElementById('pSaveBtn');
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Saving…';
+
+  const id = document.getElementById('pId').value;
+  const swatches = document.getElementById('pSwatches').value
+    .split(',').map(s => s.trim()).filter(Boolean);
+
+  const payload = {
+    name: document.getElementById('pName').value.trim(),
+    cat: document.getElementById('pCat').value,
+    price: Number(document.getElementById('pPrice').value),
+    tag: document.getElementById('pTag').value.trim(),
+    sort_order: Number(document.getElementById('pSort').value) || 0,
+    img: document.getElementById('pImg').value.trim(),
+    desc: document.getElementById('pDesc').value.trim(),
+    swatches,
+    featured: document.getElementById('pFeatured').checked,
+    is_new: document.getElementById('pIsNew').checked
+  };
+
+  const { error } = id
+    ? await supabaseClient.from('products').update(payload).eq('id', id)
+    : await supabaseClient.from('products').insert(payload);
+
+  saveBtn.disabled = false;
+  saveBtn.textContent = 'Save Product';
+
+  if (error) { showToast('Error saving product: ' + error.message); return; }
+
+  showToast(id ? 'Product updated' : 'Product added');
+  closeProductModal();
+  loadProducts();
+});
+
+async function deleteProduct(id) {
+  if (!confirm('Delete this product? This cannot be undone.')) return;
+  const { error } = await supabaseClient.from('products').delete().eq('id', id);
+  if (error) { showToast('Error deleting product: ' + error.message); return; }
+  showToast('Product deleted');
+  loadProducts();
+}
+
+/* ══ helpers ══ */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+    .replaceAll('"','&quot;').replaceAll("'",'&#39;');
+}
+</script>
+
+</body>
+</html>

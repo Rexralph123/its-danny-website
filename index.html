@@ -11,6 +11,9 @@
 <!-- EmailJS — must load before any emailjs.send() call -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init({ publicKey: "VxJO6kQ_TLTc5QKC3" });</script>
+<!-- Supabase — must load before supabase-client.js -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 </head>
 <body>
 
@@ -364,7 +367,7 @@ async function sendBookingNotifications(params, waMessage) {
 }
 
 /* ══ PRODUCTS ══ */
-const products = [
+let products = [
   { id:1, cat:'agbada',  name:'Isi Agu',             price:105000, tag:'Bestseller', img:'public/images/daniel-3-isiagu.jpg',             swatches:['#2C1A0E','#1A2C1A','#1A1A2C','#2C2210','#3D1A00'], desc:'A distinguished Isi Agu traditional outfit crafted for prestige and cultural pride. Featuring the iconic lion-head pattern with a tailored finish, it embodies confidence, heritage, and timeless Igbo elegance.'},
   { id:2, cat:'senator', name:'Wine Senator',        price:140000, tag:'New',        img:'public/images/Wine-Senator.jpg',                  swatches:['#0D0D0D','#2C3E50','#7D6608','#2C1A0E','#1C3A2C'], desc:'A sophisticated wine senator ensemble tailored for the modern gentleman. Clean lines, impeccable craftsmanship, and a rich finish create a look that commands confidence at weddings, ceremonies, and executive occasions.'},
   { id:3, cat:'dashiki', name:'Ankara Dashiki',      price:32000,  tag:'',           img:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&q=80', swatches:['#8B2E00','#005C3B','#1A1A7C','#7C5A00','#4B0082'], desc:'Vibrant Ankara fabric, relaxed silhouette, bold print. The dashiki that turns heads at every outing.' },
@@ -376,6 +379,23 @@ const products = [
 ];
 
 let cart = [], currentProduct = null;
+
+/* ══ LOAD PRODUCTS FROM SUPABASE ══
+   Falls back to the hardcoded list above if the fetch fails
+   (offline, misconfigured keys, etc.) so the shop still works. */
+async function loadProductsFromSupabase() {
+  try {
+    const { data, error } = await supabaseClient
+      .from('products')
+      .select('*')
+      .order('sort_order', { ascending: true });
+    if (error) throw error;
+    if (data && data.length) products = data;
+  } catch (err) {
+    console.warn('Supabase product fetch failed, using local fallback:', err);
+  }
+  renderProducts();
+}
 
 function renderProducts(filter='all') {
   const list = filter==='all' ? products : products.filter(p=>p.cat===filter);
@@ -555,6 +575,23 @@ async function submitBooking() {
     `════════════════════════════════\n` +
     `Submitted: ${new Date().toLocaleString()}`;
 
+  // Save to Supabase so it shows up in the admin dashboard
+  try {
+    const { error } = await supabaseClient.from('bookings').insert({
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone: phone,
+      fitting_date: fittingDate,
+      fitting_type: fittingType,
+      design: design,
+      notes: notes || ''
+    });
+    if (error) console.warn('Supabase booking insert failed:', error);
+  } catch (err) {
+    console.warn('Supabase booking insert failed:', err);
+  }
+
   await sendBookingNotifications(params, waMsg);
 
   btn.disabled = false;
@@ -584,7 +621,7 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
 (function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
 
-renderProducts();
+loadProductsFromSupabase();
 
 
 /*=============================LOOKBOOK====================================*/

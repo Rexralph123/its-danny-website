@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Login | ITS DANNY</title>
+<link rel="icon" type="images/png" href="/public/images/logo black bg.jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/admin/Supabase client.js"></script>
+</head>
+<body class="admin-page login-page">
+
+<div class="login-card">
+  <div class="brand">ITS DANNY <span>ADMIN</span></div>
+  <div class="subtitle">Studio Dashboard Access</div>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <form id="loginForm">
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="admin@itsdanny.com" required autocomplete="username"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password"/>
+    </div>
+    <button type="submit" class="btn-login" id="loginBtn"><span>Log In</span></button>
+  </form>
+
+  <a href="/index.html" class="back-link">← Back to site</a>
+</div>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const btn = document.getElementById('loginBtn');
+  const errorMsg = document.getElementById('errorMsg');
+
+  // If already logged in, skip straight to the dashboard
+  (async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) window.location.href = 'admin-dashboard.html';
+  })();
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorMsg.classList.remove('show');
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Logging in…';
+
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      errorMsg.textContent = error.message === 'Invalid login credentials'
+        ? 'Incorrect email or password.'
+        : error.message;
+      errorMsg.classList.add('show');
+      btn.disabled = false;
+      btn.querySelector('span').textContent = 'Log In';
+      return;
+    }
+
+    window.location.href = 'admin-dashboard.html';
+  });
+</script>
+
+</body>
+</html>

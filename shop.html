@@ -13,6 +13,9 @@
     <!-- EmailJS — must load before any emailjs.send() call -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>emailjs.init({ publicKey: "VxJO6kQ_TLTc5QKC3" });</script>
+    <!-- Supabase — must load before supabase-client.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
 </head>
 
 <body>
@@ -480,6 +483,18 @@
                 `Date:    ${fittingDate}\nType:    ${fittingType}\n\n🎨 DESIGN / ORDER:\n${design}\n\n` +
                 `📝 Notes: ${notes || 'None'}\n════════════════════════════════\nSubmitted: ${new Date().toLocaleString()}`;
 
+            // Save to Supabase so it shows up in the admin dashboard
+            try {
+                const { error } = await supabaseClient.from('bookings').insert({
+                    first_name: firstName, last_name: lastName, email: email,
+                    phone: phone, fitting_date: fittingDate, fitting_type: fittingType,
+                    design: design, notes: notes || ''
+                });
+                if (error) console.warn('Supabase booking insert failed:', error);
+            } catch (err) {
+                console.warn('Supabase booking insert failed:', err);
+            }
+
             await sendNotifications(params, waMsg);
 
             btn.querySelector('span').textContent = 'Confirm Booking →'; btn.disabled = false;
@@ -488,8 +503,10 @@
             showToast('Booking sent! WhatsApp has been opened for confirmation.');
         }
 
-        /* ══ PRODUCTS ══ */
-        const products = [
+        /* ══ PRODUCTS ══
+           Loaded from Supabase (same 'products' table admin-dashboard.html
+           manages). Falls back to this local list if the fetch fails. */
+        let products = [
             { id: 1, cat: 'agbada',  name: 'Isi Agu',            tag: 'Bestseller',   price: 105000,   featured: true,  isNew: false, img: 'Images/Daniel & 3 isiagu.jpg',      swatches: ['#2C1A0E', '#1A2C1A', '#1A1A2C', '#2C2210', '#3D1A00'], desc: 'A distinguished Isi Agu traditional outfit crafted for prestige and cultural pride. Featuring the iconic lion-head pattern with a tailored finish, it embodies confidence, heritage, and timeless Igbo elegance.' },
             { id: 2, cat: 'senator', name: 'Wine Senator',       tag: 'New',          price: 140000,   featured: true,  isNew: true,  img: 'Images/Wine Senator.jpg',           swatches: ['#0D0D0D', '#2C3E50', '#7D6608', '#2C1A0E', '#1C3A2C'], desc: 'A refined senator — matching embroidered top and trousers. The go-to for events, meetings, and everything in between.' },
             { id: 3, cat: 'dashiki', name: 'Ankara Dashiki',     tag: '',             price: 32000,    featured: false, isNew: false, img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=700&q=80', swatches: ['#8B2E00', '#005C3B', '#1A1A7C', '#7C5A00', '#4B0082'], desc: 'Vibrant Ankara fabric, relaxed silhouette, bold print. The dashiki that turns heads at every outing.' },
@@ -506,6 +523,26 @@
 
         let cart = [], currentProduct = null, activeCat = 'all', activeColors = [], priceMin = 0, priceMax = Infinity, sortBy = 'featured', viewMode = 'grid', currentPage = 1;
         const PER_PAGE = 9;
+
+        async function loadProductsFromSupabase() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('products')
+                    .select('*')
+                    .order('sort_order', { ascending: true });
+                if (error) throw error;
+                if (data && data.length) {
+                    products = data.map(p => ({
+                        id: p.id, cat: p.cat, name: p.name, tag: p.tag || '',
+                        price: Number(p.price), featured: !!p.featured, isNew: !!p.is_new,
+                        img: p.img, swatches: p.swatches || [], desc: p.desc || ''
+                    }));
+                }
+            } catch (err) {
+                console.warn('Supabase product fetch failed, using local fallback:', err);
+            }
+            renderAll();
+        }
 
         function getFiltered() {
             let list = products.slice();
@@ -722,7 +759,7 @@
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
         (function anim() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(anim); })();
 
-        renderAll();
+        loadProductsFromSupabase();
 
         // Handle category hash links from other pages (Shop.html#agbada etc.)
         window.addEventListener('load', function () {
